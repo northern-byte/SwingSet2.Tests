@@ -1,5 +1,6 @@
 package tests.tableDemo;
 
+import exceptions.FixtureNotInitializedException;
 import interfaces.fixtures.Fixture;
 import org.fest.swing.applet.AppletViewer;
 import org.fest.swing.fixture.FrameFixture;
@@ -17,7 +18,12 @@ class BasicAppletFixture implements Fixture<FrameFixture>{
     }
 
     @Override
-    public void Dispose() {
-        frame.close();
+    public void Dispose(){
+        try {
+            frame.close();
+        }catch (NullPointerException e){
+            throw new FixtureNotInitializedException("You need to call Init() first to create applet and frame");
+        }
+
     }
 }
