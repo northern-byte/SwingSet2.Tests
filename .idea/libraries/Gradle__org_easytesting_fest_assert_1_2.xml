@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.easytesting:fest-assert:1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.easytesting/fest-assert/1.2/bb0d051e157f921537aa30d6d2c2a6b201edbb1b/fest-assert-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.easytesting/fest-assert/1.2/6046c687be46e362e6e95300cf3b1ff66bac7e3f/fest-assert-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

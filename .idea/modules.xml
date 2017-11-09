@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SwingSet2.Tests.iml" filepath="$PROJECT_DIR$/.idea/modules/SwingSet2.Tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SwingSet2.Tests_main.iml" filepath="$PROJECT_DIR$/.idea/modules/SwingSet2.Tests_main.iml" group="SwingSet2.Tests" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SwingSet2.Tests_test.iml" filepath="$PROJECT_DIR$/.idea/modules/SwingSet2.Tests_test.iml" group="SwingSet2.Tests" />
+    </modules>
+  </component>
+</project>
