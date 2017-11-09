@@ -3,3 +3,4 @@ docs/~*
 out
 build
 docs/JTableDemoTestPlan/Backup*.docx
+sut/*.jar
