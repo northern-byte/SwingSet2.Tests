@@ -1,16 +1,16 @@
-package tests;
+package tests.tableDemo;
 
-import org.fest.swing.applet.AppletViewer;
+import interfaces.fixtures.Fixture;
 import org.fest.swing.core.BasicComponentFinder;
 import org.fest.swing.core.ComponentFinder;
 import org.fest.swing.core.GenericTypeMatcher;
 import org.fest.swing.exception.ComponentLookupException;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JToggleButtonFixture;
-import org.fest.swing.launcher.AppletLauncher;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.fest.swing.timing.Timeout;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,14 +18,17 @@ import javax.swing.*;
 import java.util.Objects;
 
 public class ReorderingColumns {
-    FrameFixture applet;
-    AppletViewer viewer;
 
+    Fixture fixture = new BasicAppletFixture();
+    FrameFixture frame;
     @Before
-    public void Setup() {
-        viewer = AppletLauncher.applet("SwingSet2Applet").start();
-        applet = new FrameFixture(viewer);
-        applet.show();
+    public void Setup(){
+        frame = (FrameFixture) fixture.Init();
+    }
+
+    @After
+    public void Close(){
+        fixture.Dispose();
     }
 
     @Test //Prototype
@@ -42,6 +45,7 @@ public class ReorderingColumns {
             }
         };
         ComponentFinder finder = BasicComponentFinder.finderWithCurrentAwtHierarchy();
+
         Pause.pause(new Condition("Wait until expected button is there") {
             @Override
             public boolean test() {
@@ -55,7 +59,7 @@ public class ReorderingColumns {
             }
         }, Timeout.timeout(2000));
 
-        JToggleButtonFixture button = new JToggleButtonFixture(applet.robot, finder.find(toggleButtonMatcher));
+        JToggleButtonFixture button = new JToggleButtonFixture(frame.robot, finder.find(toggleButtonMatcher));
         button.click();
     }
 }
