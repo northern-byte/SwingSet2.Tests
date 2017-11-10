@@ -1,7 +1,7 @@
 package interfaces.pageObjects;
 
-public interface View<T extends Demo> {
+public interface View {
     Menu getMenu();
     DemoSwitcher getDemoSwitcher();
-    T getDemo();
+    Demo getTableDemo();
 }
