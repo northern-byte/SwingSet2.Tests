@@ -12,16 +12,9 @@ import javax.swing.*;
 import java.util.Objects;
 
 public class ComponentHunter {
+
     public <T extends JComponent> T obtainByToolTipText(Class<T> supportedType, String expectedText) {
-        GenericTypeMatcher<T> matcher = new GenericTypeMatcher<T>(supportedType) {
-            @Override
-            protected boolean isMatching(T component) {
-                if (Objects.equals(((JComponent) component).getToolTipText(), expectedText)) {
-                    return true;
-                }
-                return false;
-            }
-        };
+        GenericTypeMatcher<T> matcher = getMatcher(supportedType, expectedText);
 
         ComponentFinder finder = BasicComponentFinder.finderWithCurrentAwtHierarchy();
 
@@ -40,5 +33,17 @@ public class ComponentHunter {
 
         T res = finder.find(matcher);
         return res;
+    }
+
+    private <T extends JComponent> GenericTypeMatcher<T> getMatcher(Class<T> supportedType, String expectedText) {
+        return new GenericTypeMatcher<T>(supportedType) {
+                @Override
+                protected boolean isMatching(T component) {
+                    if (Objects.equals(component.getToolTipText(), expectedText)) {
+                        return true;
+                    }
+                    return false;
+                }
+            };
     }
 }
