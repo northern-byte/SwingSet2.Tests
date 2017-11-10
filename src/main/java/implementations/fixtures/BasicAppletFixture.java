@@ -1,4 +1,4 @@
-package tests.tableDemo;
+package implementations.fixtures;
 
 import exceptions.FixtureNotInitializedException;
 import interfaces.fixtures.Fixture;
@@ -6,7 +6,7 @@ import org.fest.swing.applet.AppletViewer;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.launcher.AppletLauncher;
 
-class BasicAppletFixture implements Fixture<FrameFixture>{
+public class BasicAppletFixture implements Fixture<FrameFixture>{
 
     private FrameFixture frame;
 

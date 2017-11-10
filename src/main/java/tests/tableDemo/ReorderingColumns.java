@@ -1,5 +1,6 @@
 package tests.tableDemo;
 
+import implementations.fixtures.BasicAppletFixture;
 import interfaces.fixtures.Fixture;
 import org.fest.swing.core.BasicComponentFinder;
 import org.fest.swing.core.ComponentFinder;
@@ -21,6 +22,7 @@ public class ReorderingColumns {
 
     Fixture fixture = new BasicAppletFixture();
     FrameFixture frame;
+
     @Before
     public void Setup(){
         frame = (FrameFixture) fixture.Init();
