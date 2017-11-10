@@ -7,6 +7,11 @@ import org.fest.swing.fixture.FrameFixture;
 public class BasicTableDemo extends PageObject implements TableDemo{
 
     public BasicTableDemo(FrameFixture frame) {
-        this.frame = frame;
+        super(frame);
+    }
+
+    @Override
+    protected void InitComponents() {
+
     }
 }
