@@ -1,7 +1,10 @@
 package implementations.pageObjects;
 
 import interfaces.factories.ViewFactory;
-import interfaces.pageObjects.*;
+import interfaces.pageObjects.DemoSwitcher;
+import interfaces.pageObjects.Menu;
+import interfaces.pageObjects.TableDemo;
+import interfaces.pageObjects.View;
 
 public class DefaultView implements View {
 

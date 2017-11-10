@@ -1,6 +1,8 @@
 package interfaces.fixtures;
 
-public interface Fixture<T> {
-    T Init();
+import interfaces.pageObjects.View;
+
+public interface Fixture {
+    View Init();
     void Dispose();
 }

@@ -1,7 +1,12 @@
 package implementations.pageObjects;
 
+import abstracts.PageObject;
 import interfaces.pageObjects.TableDemo;
+import org.fest.swing.fixture.FrameFixture;
 
-public class BasicTableDemo implements TableDemo{
+public class BasicTableDemo extends PageObject implements TableDemo{
 
+    public BasicTableDemo(FrameFixture frame) {
+        this.frame = frame;
+    }
 }
