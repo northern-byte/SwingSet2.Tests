@@ -3,12 +3,8 @@ package implementations.pageObjects;
 import abstracts.PageObject;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
-import org.fest.swing.core.GenericTypeMatcher;
 import org.fest.swing.fixture.*;
 import utils.ResourceManager;
-
-import javax.swing.*;
-import java.util.Objects;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
 
@@ -16,41 +12,40 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         super(frame);
     }
 
-    //region Matchers
-    private final GenericTypeMatcher<JCheckBox> reorderingCheckBoxMatcher = getMatcher(JCheckBox.class,
-            c -> Objects.equals(c.getText(), ResourceManager.getString("TableDemo.reordering_allowed")));
-    //endregion
 
     //region Components
-    Lazy<JTableFixture> tableView = wait.lazy(() -> frame.table());
-    Lazy<JScrollPaneFixture> scrollpane = wait.lazy(() -> frame.scrollPane());
+    protected Lazy<JTableFixture> tableView = wait.lazy(() -> frame.table());
+    protected Lazy<JScrollPaneFixture> scrollpane = wait.lazy(() -> frame.scrollPane());
 
-    Lazy<JCheckBoxFixture> isColumnReorderingAllowedCheckBox = wait.lazy(() -> frame.checkBox(reorderingCheckBoxMatcher));
-    JCheckBoxFixture showHorizontalLinesCheckBox;
-    JCheckBoxFixture showVerticalLinesCheckBox;
+    //region Expected Texts
+    private final String reorderingText = ResourceManager.getString("TableDemo.reordering_allowed");
+    private final String horzText = ResourceManager.getString("TableDemo.horz_lines");
+    private final String vertText = ResourceManager.getString("TableDemo.vert_lines");
+    private final String columnSelText = ResourceManager.getString("TableDemo.column_selection");
+    private final String rowSelText = ResourceManager.getString("TableDemo.row_selection");
+    private final String intercellColonText = ResourceManager.getString("TableDemo.intercell_spacing_colon");
+    private final String rowHeightColonText = ResourceManager.getString("TableDemo.row_height_colon");
+    private final String intercellSliderName = ResourceManager.getString("TableDemo.intercell_spacing");
+    private final String rowHeightSliderName = ResourceManager.getString("TableDemo.row_height");
+    private final String selectionDefaultValue = ResourceManager.getString("TableDemo.multiple_ranges");
+    private final String resizeDefaultValue = ResourceManager.getString("TableDemo.subsequent_columns");
+    //endregion
 
-    JCheckBoxFixture isColumnSelectionAllowedCheckBox;
-    JCheckBoxFixture isRowSelectionAllowedCheckBox;
+    protected Lazy<JCheckBoxFixture> isColumnReorderingAllowedCheckBox = wait.lazy(() -> frame.checkBox(getCheckBoxTextMatcher(reorderingText)));
+    protected Lazy<JCheckBoxFixture> showHorizontalLinesCheckBox = wait.lazy(() -> frame.checkBox(getCheckBoxTextMatcher(horzText)));
+    protected Lazy<JCheckBoxFixture> showVerticalLinesCheckBox = wait.lazy(() -> frame.checkBox(getCheckBoxTextMatcher(vertText)));
 
-    JLabelFixture interCellSpacingLabel;
-    JLabelFixture rowHeightLabel;
+    protected Lazy<JCheckBoxFixture> isColumnSelectionAllowedCheckBox = wait.lazy(() -> frame.checkBox(getCheckBoxTextMatcher(columnSelText)));
+    protected Lazy<JCheckBoxFixture> isRowSelectionAllowedCheckBox = wait.lazy(() -> frame.checkBox(getCheckBoxTextMatcher(rowSelText)));
 
-    JSliderFixture interCellSpacingSlider;
-    JSliderFixture rowHeightSlider;
+    protected Lazy<JLabelFixture> interCellSpacingLabel = wait.lazy(() -> frame.label(getLabelTextMatcher(intercellColonText)));
+    protected Lazy<JLabelFixture> rowHeightLabel = wait.lazy(() -> frame.label(getLabelTextMatcher(rowHeightColonText)));
 
-    JComboBoxFixture selectionModeComboBox = null;
-    JComboBoxFixture resizeModeComboBox = null;
+    protected Lazy<JSliderFixture> interCellSpacingSlider = wait.lazy(() -> frame.slider(getSliderAccessNameMatcher(intercellSliderName)));
+    protected Lazy<JSliderFixture> rowHeightSlider = wait.lazy(() -> frame.slider(getSliderAccessNameMatcher(rowHeightSliderName)));
 
-    JLabelFixture headerLabel;
-    JLabelFixture footerLabel;
-
-    JTextComponentFixture headerTextField;
-    JTextComponentFixture footerTextField;
-
-    JCheckBoxFixture fitWidth;
-    JButtonFixture printButton;
-
-    JPanelFixture controlPanel;
+    protected Lazy<JComboBoxFixture> selectionModeComboBox = wait.lazy(() -> frame.comboBox(getComboBoxSelectedMatcher(selectionDefaultValue)));
+    protected Lazy<JComboBoxFixture> resizeModeComboBox = wait.lazy(() -> frame.comboBox(getComboBoxSelectedMatcher(resizeDefaultValue)));
     //endregion
 
     @Override
@@ -59,5 +54,16 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         scrollpane.get().verticalScrollBar().scrollBlockDown(6);
         isColumnReorderingAllowedCheckBox.get().uncheck();
         isColumnReorderingAllowedCheckBox.get().click();
+        showHorizontalLinesCheckBox.get().click();
+        showVerticalLinesCheckBox.get().click();
+        interCellSpacingLabel.get().click();
+        rowHeightLabel.get().click();
+        isColumnReorderingAllowedCheckBox.get().click();
+        isColumnSelectionAllowedCheckBox.get().click();
+        isRowSelectionAllowedCheckBox.get().click();
+        interCellSpacingSlider.get().slideToMaximum();
+        rowHeightSlider.get().slideToMinimum();
+        selectionModeComboBox.get().selectItem(0);
+        resizeModeComboBox.get().selectItem(0);
     }
 }
