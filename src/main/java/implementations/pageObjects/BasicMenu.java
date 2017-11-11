@@ -8,9 +8,4 @@ public class BasicMenu extends PageObject implements Menu {
     public BasicMenu(FrameFixture frame) {
         super(frame);
     }
-
-    @Override
-    protected void InitComponents() {
-
-    }
 }
