@@ -7,6 +7,7 @@ import org.fest.swing.fixture.JToggleButtonFixture;
 import utils.ResourceManager;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class BasicDemoSwitcher extends PageObject implements DemoSwitcher {
 
@@ -18,8 +19,8 @@ public class BasicDemoSwitcher extends PageObject implements DemoSwitcher {
 
     @Override
     protected void InitComponents() {
-        tableDemoButton = new JToggleButtonFixture(frame.robot, hunter.obtainByToolTipText(JToggleButton.class,
-                ResourceManager.getString("TableDemo.tooltip")));
+        tableDemoButton = wait(() -> frame.toggleButton(getMatcher(JToggleButton.class,
+                b -> Objects.equals(b.getToolTipText(), ResourceManager.getString("TableDemo.tooltip")))));
     }
 
     @Override
