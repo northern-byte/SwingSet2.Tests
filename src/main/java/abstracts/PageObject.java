@@ -45,4 +45,11 @@ public abstract class PageObject {
         Function<JComboBox, Boolean> condition = c -> Objects.equals(c.getSelectedItem().toString(), expectedValue);
         return getMatcher(JComboBox.class, condition);
     }
+
+    protected GenericTypeMatcher<JToggleButton> getToggleButtonTooltipMatcher(String expectedTooltip){
+        Function<JToggleButton, Boolean> condition = c -> Objects.equals(c.getToolTipText(), expectedTooltip);
+        return getMatcher(JToggleButton.class, condition);
+    }
+
+
 }
