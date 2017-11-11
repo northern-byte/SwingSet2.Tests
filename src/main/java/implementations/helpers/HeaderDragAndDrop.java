@@ -22,7 +22,7 @@ public class HeaderDragAndDrop {
         this.dragAndDrop = new ComponentDragAndDrop(robot);
     }
 
-    private Point pointAtName(final JTableHeader tableHeader, final TextMatcher matcher) {
+    public Point pointAtName(final JTableHeader tableHeader, final TextMatcher matcher) {
         return execute(new GuiQuery<Point>() {
             protected Point executeInEDT() {
                 Pair<Integer, Point> indexAndLocation = new JTableHeaderLocation().pointAt(tableHeader, matcher);
