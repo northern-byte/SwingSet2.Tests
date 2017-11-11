@@ -25,5 +25,6 @@ public class ReorderingColumns {
     @Test //Prototype
     public void DragColumnsLeft(){
         view.getDemoSwitcher().goToTableDemo();
+        view.getTableDemo().clickTable();
     }
 }
