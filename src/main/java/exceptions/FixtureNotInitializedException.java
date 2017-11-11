@@ -1,7 +1,6 @@
 package exceptions;
 
 public class FixtureNotInitializedException extends RuntimeException{
-
     public FixtureNotInitializedException() {
     }
 
