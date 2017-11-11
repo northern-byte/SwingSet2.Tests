@@ -3,7 +3,7 @@ package abstracts;
 import org.fest.swing.core.GenericTypeMatcher;
 import org.fest.swing.exception.ComponentLookupException;
 import org.fest.swing.fixture.FrameFixture;
-import org.fest.swing.fixture.JToggleButtonFixture;
+import org.fest.swing.fixture.JComponentFixture;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.fest.swing.timing.Timeout;
@@ -36,7 +36,7 @@ public abstract class PageObject {
         };
     }
 
-    protected JToggleButtonFixture wait(Supplier<JToggleButtonFixture> supplier) {
+    protected <T extends JComponentFixture> T wait(Supplier<T> supplier) {
         Pause.pause(new Condition("Wait until expected component is there") {
             @Override
             public boolean test() {
