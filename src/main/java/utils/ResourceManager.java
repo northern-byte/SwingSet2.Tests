@@ -33,7 +33,7 @@ public class ResourceManager {
         }
     }
 
-    public static synchronized String getProp(String key) {
+    public static synchronized String getPropString(String key) {
         if (_properties == null) {
             try {
                 _properties = new Properties();
@@ -47,5 +47,21 @@ public class ResourceManager {
             throw new NoSuchPropertyException(String.format("There is no property: %s", key));
         }
         return value;
+    }
+
+    public static synchronized Integer getPropInt(String key) {
+        try {
+            return Integer.parseInt(getPropString(key));
+        } catch (NumberFormatException e) {
+            throw e;
+        }
+    }
+
+    public static synchronized Double getPropDouble(String key) {
+        try {
+            return Double.parseDouble(getPropString(key));
+        } catch (NumberFormatException e) {
+            throw e;
+        }
     }
 }
