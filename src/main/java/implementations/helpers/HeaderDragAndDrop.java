@@ -25,23 +25,62 @@ public class HeaderDragAndDrop {
     public Point pointAtName(final JTableHeader tableHeader, final TextMatcher matcher) {
         return execute(new GuiQuery<Point>() {
             protected Point executeInEDT() {
-                Pair<Integer, Point> indexAndLocation = new JTableHeaderLocation().pointAt(tableHeader, matcher);
-                validateIsEnabledAndShowing(tableHeader);
-                tableHeader.getTable().scrollRectToVisible(tableHeader.getHeaderRect(indexAndLocation.i));
-                return indexAndLocation.ii;
+                Pair<Integer, Point> indexAndLocation = getIndexAndLocation(tableHeader, matcher);
+                return getPoint(indexAndLocation, tableHeader);
             }
         });
     }
 
-    public void drag(JTableHeader target, TextMatcher matcher){
-        dragAndDrop.drag(target, pointAtName(target, matcher));
+    public Point leftBorder(final JTableHeader tableHeader, final TextMatcher matcher) {
+        return execute(new GuiQuery<Point>() {
+            @Override
+            protected Point executeInEDT() {
+                final Integer i = getIndexAndLocation(tableHeader, matcher).i;
+                Rectangle r = tableHeader.getHeaderRect(i);
+                Point p = new Point(r.x, r.y + r.height / 2);
+                Pair<Integer, Point> indexAndLocation = new Pair<>(i, p);
+                return getPoint(indexAndLocation, tableHeader);
+            }
+        });
     }
 
-    public void drop(JTableHeader target, TextMatcher matcher){
-        dragAndDrop.drop(target, pointAtName(target, matcher));
+    public Point rightBorder(final JTableHeader tableHeader, final TextMatcher matcher) {
+        return execute(new GuiQuery<Point>() {
+            @Override
+            protected Point executeInEDT() {
+                final Integer i = getIndexAndLocation(tableHeader, matcher).i;
+                Rectangle r = tableHeader.getHeaderRect(i);
+                Point p = new Point(r.x + r.width, r.y + r.height / 2);
+                Pair<Integer, Point> indexAndLocation = new Pair<>(i, p);
+                return getPoint(indexAndLocation, tableHeader);
+            }
+        });
     }
 
-    public TextMatcher exactText(String expected){
+    private Pair<Integer, Point> getIndexAndLocation(JTableHeader tableHeader, TextMatcher matcher) {
+        return new JTableHeaderLocation().pointAt(tableHeader, matcher);
+    }
+
+    private Point getPoint(Pair<Integer, Point> indexAndLocation, JTableHeader tableHeader) {
+        validateIsEnabledAndShowing(tableHeader);
+        tableHeader.getTable().scrollRectToVisible(tableHeader.getHeaderRect(indexAndLocation.i));
+        return indexAndLocation.ii;
+    }
+
+    public void drag(JTableHeader target, Point from) {
+        dragAndDrop.drag(target, from);
+    }
+
+    public void drop(JTableHeader target, Point to) {
+        dragAndDrop.drop(target, to);
+    }
+
+    public void dragAndDrop(JTableHeader target, Point from, Point to){
+        drag(target, from);
+        drop(target, to);
+    }
+
+    public TextMatcher exactText(String expected) {
         return new TextMatcher() {
             @Override
             public boolean isMatching(String text) {
@@ -60,7 +99,7 @@ public class HeaderDragAndDrop {
         };
     }
 
-    public TextMatcher containsText(String substring){
+    public TextMatcher containsText(String substring) {
         return new TextMatcher() {
             @Override
             public boolean isMatching(String text) {
