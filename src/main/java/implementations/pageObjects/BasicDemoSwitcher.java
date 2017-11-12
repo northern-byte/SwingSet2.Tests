@@ -10,7 +10,7 @@ import utils.ResourceManager;
 public class BasicDemoSwitcher extends PageObject implements DemoSwitcher {
 
     //region Expected Texts
-    private final String tableDemoButtonTooltip = ResourceManager.getString("TableDemo.tooltip");
+    private final String tableDemoButtonTooltip = ResourceManager.getResString("TableDemo.tooltip");
     //endregion
 
     //region Components
