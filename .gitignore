@@ -1,6 +1,4 @@
-docs/~*
 .gradle
 out
 build
-docs/JTableDemoTestPlan/Backup*.docx
 sut/*.jar
