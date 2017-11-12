@@ -3,6 +3,7 @@ package implementations.wrappers;
 import java.util.function.Supplier;
 
 public class Lazy<T> {
+    private T value;
     private Supplier<T> action;
 
     public Lazy(Supplier<T> action) {
@@ -10,6 +11,9 @@ public class Lazy<T> {
     }
 
     public synchronized T get() {
-        return action.get();
+        if(value == null){
+            value = action.get();
+        }
+        return value;
     }
 }
