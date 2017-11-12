@@ -25,7 +25,7 @@ public class ResourceManager {
         return config;
     }
 
-    public static String getString(String key) {
+    public static String getResString(String key) {
         try {
             return BUNDLE.getString(key);
         } catch (MissingResourceException e) {

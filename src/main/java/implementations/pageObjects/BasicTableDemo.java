@@ -1,10 +1,15 @@
 package implementations.pageObjects;
 
 import abstracts.PageObject;
+import implementations.helpers.HeaderDragAndDrop;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
 import org.fest.swing.fixture.*;
+import org.junit.Assert;
 import utils.ResourceManager;
+
+import javax.swing.table.JTableHeader;
+import java.awt.*;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
 
@@ -12,24 +17,27 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         super(frame);
     }
 
+    //region Helpers
+    protected HeaderDragAndDrop dragAndDrop = new HeaderDragAndDrop(frame.robot);
+    //endregion
+
+    //region Expected Texts
+    private final String reorderingText = ResourceManager.getResString("TableDemo.reordering_allowed");
+    private final String horzText = ResourceManager.getResString("TableDemo.horz_lines");
+    private final String vertText = ResourceManager.getResString("TableDemo.vert_lines");
+    private final String columnSelText = ResourceManager.getResString("TableDemo.column_selection");
+    private final String rowSelText = ResourceManager.getResString("TableDemo.row_selection");
+    private final String intercellColonText = ResourceManager.getResString("TableDemo.intercell_spacing_colon");
+    private final String rowHeightColonText = ResourceManager.getResString("TableDemo.row_height_colon");
+    private final String intercellSliderName = ResourceManager.getResString("TableDemo.intercell_spacing");
+    private final String rowHeightSliderName = ResourceManager.getResString("TableDemo.row_height");
+    private final String selectionDefaultValue = ResourceManager.getResString("TableDemo.multiple_ranges");
+    private final String resizeDefaultValue = ResourceManager.getResString("TableDemo.subsequent_columns");
+    //endregion
 
     //region Components
     protected Lazy<JTableFixture> tableView = wait.lazy(() -> frame.table());
     protected Lazy<JScrollPaneFixture> scrollpane = wait.lazy(() -> frame.scrollPane());
-
-    //region Expected Texts
-    private final String reorderingText = ResourceManager.getString("TableDemo.reordering_allowed");
-    private final String horzText = ResourceManager.getString("TableDemo.horz_lines");
-    private final String vertText = ResourceManager.getString("TableDemo.vert_lines");
-    private final String columnSelText = ResourceManager.getString("TableDemo.column_selection");
-    private final String rowSelText = ResourceManager.getString("TableDemo.row_selection");
-    private final String intercellColonText = ResourceManager.getString("TableDemo.intercell_spacing_colon");
-    private final String rowHeightColonText = ResourceManager.getString("TableDemo.row_height_colon");
-    private final String intercellSliderName = ResourceManager.getString("TableDemo.intercell_spacing");
-    private final String rowHeightSliderName = ResourceManager.getString("TableDemo.row_height");
-    private final String selectionDefaultValue = ResourceManager.getString("TableDemo.multiple_ranges");
-    private final String resizeDefaultValue = ResourceManager.getString("TableDemo.subsequent_columns");
-    //endregion
 
     protected Lazy<JCheckBoxFixture> isColumnReorderingAllowedCheckBox = wait.lazy(() -> frame.checkBox(getCheckBoxTextMatcher(reorderingText)));
     protected Lazy<JCheckBoxFixture> showHorizontalLinesCheckBox = wait.lazy(() -> frame.checkBox(getCheckBoxTextMatcher(horzText)));
