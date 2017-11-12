@@ -1,7 +1,9 @@
 package tests.tableDemo;
 
-import implementations.fixtures.BasicAppletFixture;
-import interfaces.fixtures.Fixture;
+import implementations.fixtures.AppletSetupFixture;
+import implementations.fixtures.TableDemoPrepareFixture;
+import interfaces.fixtures.PrepareFixture;
+import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.View;
 import org.junit.After;
 import org.junit.Before;
@@ -9,22 +11,23 @@ import org.junit.Test;
 
 public class ReorderingColumns {
 
-    Fixture fixture = new BasicAppletFixture();
+    SetupFixture setupFixture = new AppletSetupFixture();
+    PrepareFixture prepairDemo = new TableDemoPrepareFixture();
     View view;
 
     @Before
     public void Setup(){
-        view = fixture.Init();
+        view = setupFixture.init();
+        prepairDemo.prepair(view);
     }
 
     @After
     public void Close(){
-        fixture.Dispose();
+        setupFixture.dispose();
     }
 
     @Test //Prototype
     public void DragColumnsLeft(){
-        view.getDemoSwitcher().goToTableDemo();
         view.getTableDemo().clickTable();
     }
 }
