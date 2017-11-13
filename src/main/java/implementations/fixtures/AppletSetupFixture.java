@@ -32,6 +32,7 @@ public class AppletSetupFixture implements SetupFixture {
         });
         frame = new FrameFixture(applet);
         factory = new BasicViewFactory(frame);
+        ResourceManager.loadProps();
         return new DefaultView(factory);
     }
 
