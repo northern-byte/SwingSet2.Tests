@@ -4,9 +4,12 @@ import abstracts.PageObject;
 import implementations.helpers.HeaderDragAndDrop;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
+import org.fest.swing.data.TableCell;
 import org.fest.swing.fixture.*;
+import org.junit.Assert;
 import utils.ResourceManager;
 
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
@@ -56,21 +59,63 @@ public class BasicTableDemo extends PageObject implements TableDemo {
 
     @Override
     public void clickTable() {
-        tableView.get().click();
-        scrollpane.get().verticalScrollBar().scrollBlockDown(6);
-        isColumnReorderingAllowedCheckBox.get().uncheck();
-        isColumnReorderingAllowedCheckBox.get().click();
-        showHorizontalLinesCheckBox.get().click();
-        showVerticalLinesCheckBox.get().click();
-        interCellSpacingLabel.get().click();
-        rowHeightLabel.get().click();
-        isColumnReorderingAllowedCheckBox.get().click();
-        isColumnSelectionAllowedCheckBox.get().click();
-        isRowSelectionAllowedCheckBox.get().click();
+        JTableFixture table = tableView.get();
+//        table.click();
+//        table.drag(TableCell.row(0).column(0));
+//        table.drop(TableCell.row(0).column(3));
+//        table.tableHeader().clickColumn(0);
+//
+//        scrollpane.get().verticalScrollBar().scrollBlockDown(6);
+//        isColumnReorderingAllowedCheckBox.get().uncheck();
+//        isColumnReorderingAllowedCheckBox.get().click();
+//        showHorizontalLinesCheckBox.get().click();
+//        showVerticalLinesCheckBox.get().click();
+//        interCellSpacingLabel.get().click();
+//        rowHeightLabel.get().click();
+//        isColumnReorderingAllowedCheckBox.get().click();
+//        isColumnSelectionAllowedCheckBox.get().click();
+//        isRowSelectionAllowedCheckBox.get().click();
+//        interCellSpacingSlider.get().slideToMaximum();
+//        rowHeightSlider.get().slideToMinimum();
+//        selectionModeComboBox.get().selectItem(0);
+//        resizeModeComboBox.get().selectItem(0);
+        JTableHeader header = table.tableHeader().target;
+        Point from = dragAndDrop.pointAtName(header, dragAndDrop.exactText("First Name"));
+        Point to = dragAndDrop.pointAtName(header, dragAndDrop.containsText("Movie"));
+        dragAndDrop.drag(header, from);
+        dragAndDrop.drop(header,to);
+
+        Assert.assertTrue(table.cell("Mike").column == 2);
+
+        Point b1 = dragAndDrop.rightBorder(header, dragAndDrop.containsText("First Name"));
+        Point to2 = dragAndDrop.pointAtName(header, dragAndDrop.containsText("Movie"));
+        dragAndDrop.dragAndDrop(header, b1, to2);
+
+        Point b2 = dragAndDrop.leftBorder(header, dragAndDrop.containsText("Movie"));
+        Point to3 = dragAndDrop.pointAtName(header, dragAndDrop.containsText("Last"));
+        dragAndDrop.dragAndDrop(header, b2, to3);
+
+        Dimension originalSpacing = table.target.getIntercellSpacing();
         interCellSpacingSlider.get().slideToMaximum();
+        Dimension newSpacing = table.target.getIntercellSpacing();
+        Assert.assertTrue(originalSpacing.height < newSpacing.height && originalSpacing.width < newSpacing.width);
+
+        interCellSpacingSlider.get().slideToMinimum();
+        newSpacing = table.target.getIntercellSpacing();
+        Assert.assertTrue(originalSpacing.height > newSpacing.height && originalSpacing.width > newSpacing.width);
+
+        Integer originalHeight = table.target.getRowHeight();
+        rowHeightSlider.get().slideToMaximum();
+        Integer newHeight = table.target.getRowHeight();
+        Assert.assertTrue(originalHeight < newHeight);
+
+        originalHeight = table.target.getRowHeight();
         rowHeightSlider.get().slideToMinimum();
-        selectionModeComboBox.get().selectItem(0);
-        resizeModeComboBox.get().selectItem(0);
+        newHeight = table.target.getRowHeight();
+        Assert.assertTrue(originalHeight > newHeight);
+
+        String value = table.valueAt(TableCell.row(0).column(5));
+        Assert.assertTrue(value.isEmpty());
     }
 
     @Override
