@@ -5,10 +5,8 @@ import implementations.helpers.HeaderDragAndDrop;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
 import org.fest.swing.fixture.*;
-import org.junit.Assert;
 import utils.ResourceManager;
 
-import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
@@ -73,5 +71,43 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         rowHeightSlider.get().slideToMinimum();
         selectionModeComboBox.get().selectItem(0);
         resizeModeComboBox.get().selectItem(0);
+    }
+
+    @Override
+    public int getIntercellSpacingMax() {
+        return interCellSpacingSlider.get().target.getMaximum();
+    }
+
+    @Override
+    public int getIntercellSpacingMin() {
+        return interCellSpacingSlider.get().target.getMinimum();
+    }
+
+    @Override
+    public int getIntercellSpacingValue() {
+        return interCellSpacingSlider.get().target.getValue();
+    }
+
+    @Override
+    public int setIntercellSpacingToMax() {
+        JSliderFixture slider = interCellSpacingSlider.get().slideToMaximum();
+        return slider.target.getValue();
+    }
+
+    @Override
+    public int setIntercellSpacingToMin() {
+        JSliderFixture slider = interCellSpacingSlider.get().slideToMinimum();
+        return slider.target.getValue();
+    }
+
+    @Override
+    public int setIntercellSpacingTo(int value) {
+        JSliderFixture slider = interCellSpacingSlider.get().slideTo(value);
+        return slider.target.getValue();
+    }
+
+    @Override
+    public Dimension getTableIntercellSpacing() {
+        return tableView.get().target.getIntercellSpacing();
     }
 }
