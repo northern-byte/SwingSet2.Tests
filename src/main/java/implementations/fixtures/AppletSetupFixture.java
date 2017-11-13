@@ -46,7 +46,7 @@ public class AppletSetupFixture implements SetupFixture {
                 public boolean test() {
                     return applet.isActive();
                 }
-            }, Timeout.timeout(ResourceManager.getPropInt("disposeTimeout")));
+            }, Timeout.timeout(ResourceManager.getProp("disposeTimeout").Int()));
         }catch (NullPointerException e){
             throw new FixtureNotInitializedException("You need to call init() first to create applet and frame");
         }

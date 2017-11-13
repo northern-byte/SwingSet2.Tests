@@ -14,10 +14,11 @@ public class ResourceManager {
     private static final String BUNDLE_NAME = "swingset";
     private static final String CONFIG_NAME = "config.properties";
     private static Properties _properties = null;
+    private static boolean _propsAreLoaded = false;
 
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-    private static InputStream getConfig() {
+    private static synchronized InputStream getConfig() {
         InputStream config = ResourceManager.class.getClassLoader().getResourceAsStream(CONFIG_NAME);
         if (config == null) {
             throw new MissingResourceException("Can't find config file", CONFIG_NAME, "");
@@ -25,7 +26,7 @@ public class ResourceManager {
         return config;
     }
 
-    public static String getResString(String key) {
+    public static synchronized String getResString(String key) {
         try {
             return BUNDLE.getString(key);
         } catch (MissingResourceException e) {
@@ -33,35 +34,28 @@ public class ResourceManager {
         }
     }
 
-    public static synchronized String getPropString(String key) {
-        if (_properties == null) {
-            try {
-                _properties = new Properties();
-                _properties.load(getConfig());
-            } catch (IOException e) {
-                throw new FailedToLoadPropertiesException("Failed to load properties");
-            }
-        }
+    public static synchronized Prop getProp(String key) {
+        loadProps();
         String value = _properties.getProperty(key);
         if (value == null) {
             throw new NoSuchPropertyException(String.format("There is no property: %s", key));
         }
-        return value;
+        return new Prop(value);
     }
 
-    public static synchronized Integer getPropInt(String key) {
-        try {
-            return Integer.parseInt(getPropString(key));
-        } catch (NumberFormatException e) {
-            throw e;
-        }
+    public static synchronized Prop getSpecProp(String spec, String key){
+        return getProp(String.format("%s.%s", spec, key));
     }
 
-    public static synchronized Double getPropDouble(String key) {
-        try {
-            return Double.parseDouble(getPropString(key));
-        } catch (NumberFormatException e) {
-            throw e;
+    public static synchronized void loadProps() {
+        if (!_propsAreLoaded) {
+            try {
+                _properties = new Properties();
+                _properties.load(getConfig());
+                _propsAreLoaded = true;
+            } catch (IOException e) {
+                throw new FailedToLoadPropertiesException("Failed to load properties");
+            }
         }
     }
 }
