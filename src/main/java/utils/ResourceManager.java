@@ -18,12 +18,12 @@ public class ResourceManager {
 
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
-    private static synchronized InputStream getConfig() {
-        InputStream config = ResourceManager.class.getClassLoader().getResourceAsStream(CONFIG_NAME);
-        if (config == null) {
-            throw new MissingResourceException("Can't find config file", CONFIG_NAME, "");
+    public static synchronized InputStream getResInputStream(String path) {
+        InputStream inputStream = ResourceManager.class.getClassLoader().getResourceAsStream(path);
+        if (inputStream == null) {
+            throw new MissingResourceException("Can't find resource file", path, "");
         }
-        return config;
+        return inputStream;
     }
 
     public static synchronized String getResString(String key) {
@@ -51,7 +51,7 @@ public class ResourceManager {
         if (!_propsAreLoaded) {
             try {
                 _properties = new Properties();
-                _properties.load(getConfig());
+                _properties.load(getResInputStream(CONFIG_NAME));
                 _propsAreLoaded = true;
             } catch (IOException e) {
                 throw new FailedToLoadPropertiesException("Failed to load properties");
