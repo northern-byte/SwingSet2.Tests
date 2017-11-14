@@ -2,6 +2,7 @@ package implementations.pageObjects;
 
 import abstracts.PageObject;
 import implementations.helpers.HeaderDragAndDrop;
+import implementations.helpers.ImageHelper;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
 import org.fest.swing.data.TableCell;
@@ -9,8 +10,10 @@ import org.fest.swing.fixture.*;
 import org.junit.Assert;
 import utils.ResourceManager;
 
+import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
 
@@ -20,6 +23,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
 
     //region Helpers
     protected HeaderDragAndDrop dragAndDrop = new HeaderDragAndDrop(frame.robot);
+    protected ImageHelper imageHelper = new ImageHelper();
     //endregion
 
     //region Expected Texts
@@ -57,6 +61,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     protected Lazy<JComboBoxFixture> resizeModeComboBox = wait.lazy(() -> frame.comboBox(getComboBoxSelectedMatcher(resizeDefaultValue)));
     //endregion
 
+    //TODO remove this temporary sandbox code
     @Override
     public void clickTable() {
         JTableFixture table = tableView.get();
@@ -116,7 +121,22 @@ public class BasicTableDemo extends PageObject implements TableDemo {
 
         String value = table.valueAt(TableCell.row(0).column(5));
         Assert.assertTrue(value.isEmpty());
+
+        BufferedImage expected = imageHelper.loadBufferedImageFromRes("images/ImageClub/food/strawberry.jpg");
+        int imageType = expected.getType();
+        ImageIcon image = (ImageIcon)table.target.getValueAt(0, 5);
+
+        BufferedImage bimage = imageHelper.convertToBufferedImage(image.getImage(), imageType);
+        int bh = bimage.getHeight();
+        int bw = bimage.getWidth();
+        int eh = expected.getHeight();
+        int ew = expected.getWidth();
+        Assert.assertEquals(bh, eh);
+        Assert.assertEquals(bw, ew);
+        Assert.assertTrue(imageHelper.imagesAreEqual(bimage, expected));
     }
+
+
 
     @Override
     public int getIntercellSpacingMax() {
