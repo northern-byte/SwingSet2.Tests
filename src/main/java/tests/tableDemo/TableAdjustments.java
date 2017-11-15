@@ -31,6 +31,11 @@ public class TableAdjustments {
         setupFixture.dispose();
     }
 
+    /**
+     * Go to the Table Demo
+     * Change table's inter-cell spacing to maximum via controller
+     * Check that actual maximum values of inter-cell spacing correspond to those from specification
+     */
     @Test
     public void IntercellSpacingChangesToMax() {
         TableDemo demo = view.getTableDemo();
@@ -44,6 +49,11 @@ public class TableAdjustments {
         Assert.assertTrue(newSpacing.height == maxHight && newSpacing.width == maxHWidth);
     }
 
+    /**
+     * Go to the Table Demo
+     * Change table's inter-cell spacing to minimum via controller
+     * Check that actual minimum values of inter-cell spacing correspond to those from specification
+     */
     @Test
     public void IntercellSpacingChangesToMin() {
         TableDemo demo = view.getTableDemo();
@@ -57,6 +67,14 @@ public class TableAdjustments {
         Assert.assertTrue(newSpacing.height == minHight && newSpacing.width == minHWidth);
     }
 
+    /**
+     * Go to the Table Demo
+     * Change table's inter-cell spacing to maximum via controller
+     * Calculate table's to controller's values ration
+     * Get minimum value from controller
+     * Decrease inter-cell spacing using controller by a step of one until we hit minimum value
+     * At each value, check that table's inter-cell spacing changed in linear manner in comparison to control
+     */
     @Test
     public void IntercellScalesLinearly() {
         TableDemo demo = view.getTableDemo();
