@@ -27,7 +27,7 @@ public class AppletSetupFixture implements SetupFixture {
         applet = GuiActionRunner.execute(new GuiQuery<AppletViewer>() {
             @Override
             protected AppletViewer executeInEDT() throws Throwable {
-                return AppletLauncher.applet("SwingSet2Applet").start();
+                return AppletLauncher.applet(ResourceManager.getProp("sutStartClass").String()).start();
             }
         });
         frame = new FrameFixture(applet);
