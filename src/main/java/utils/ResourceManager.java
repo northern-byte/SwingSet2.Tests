@@ -43,10 +43,6 @@ public class ResourceManager {
         return new Prop(value);
     }
 
-    public static synchronized Prop getSpecProp(String spec, String key){
-        return getProp(String.format("%s.%s", spec, key));
-    }
-
     public static synchronized void loadProps() {
         if (!_propsAreLoaded) {
             try {
