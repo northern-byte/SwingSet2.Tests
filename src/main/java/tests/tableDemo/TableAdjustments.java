@@ -10,14 +10,15 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.Specification;
 
 import java.awt.*;
 
 public class TableAdjustments {
-    SetupFixture setupFixture = new AppletSetupFixture();
-    PrepareFixture prepairDemo = new TableDemoPrepareFixture();
-    View view;
-
+    private SetupFixture setupFixture = new AppletSetupFixture();
+    private PrepareFixture prepairDemo = new TableDemoPrepareFixture();
+    private final Specification spec = new Specification();
+    private View view;
 
     @Before
     public void Setup() {
@@ -34,30 +35,26 @@ public class TableAdjustments {
     public void IntercellSpacingChangesToMax() {
         TableDemo demo = view.getTableDemo();
 
-        Dimension originalSpacing = demo.getTableIntercellSpacing();
-
         demo.setIntercellSpacingToMax();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
-        Assert.assertTrue(originalSpacing.height < newSpacing.height
-                && originalSpacing.width < newSpacing.width);
+        int maxHight = spec.get("tableDemo.intercellMaxHeight").Int();
+        int maxHWidth = spec.get("tableDemo.intercellMaxWidth").Int();
 
-        Assert.assertTrue(newSpacing.height == 10 && newSpacing.width == 10);
+        Assert.assertTrue(newSpacing.height == maxHight && newSpacing.width == maxHWidth);
     }
 
     @Test
     public void IntercellSpacingChangesToMin() {
         TableDemo demo = view.getTableDemo();
 
-        Dimension originalSpacing = demo.getTableIntercellSpacing();
-
         demo.setIntercellSpacingToMin();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
-        Assert.assertTrue(originalSpacing.height > newSpacing.height
-                && originalSpacing.width > newSpacing.width);
+        int minHight = spec.get("tableDemo.intercellMinHeight").Int();
+        int minHWidth = spec.get("tableDemo.intercellMinWidth").Int();
 
-        Assert.assertTrue(newSpacing.height == 0 && newSpacing.width == 0);
+        Assert.assertTrue(newSpacing.height == minHight && newSpacing.width == minHWidth);
     }
 
     @Test
