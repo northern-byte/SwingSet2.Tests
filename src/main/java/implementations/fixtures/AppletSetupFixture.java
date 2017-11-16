@@ -27,12 +27,13 @@ public class AppletSetupFixture implements SetupFixture {
         applet = GuiActionRunner.execute(new GuiQuery<AppletViewer>() {
             @Override
             protected AppletViewer executeInEDT() throws Throwable {
-                return AppletLauncher.applet(ResourceManager.getProp("sutStartClass").String()).start();
+                return AppletLauncher.applet(ResourceManager.getConfigProp("sutStartClass").String()).start();
             }
         });
         frame = new FrameFixture(applet);
         factory = new BasicViewFactory(frame);
-        ResourceManager.loadProps();
+        ResourceManager.loadConfigProperties();
+        ResourceManager.loadSpecificationProperties();
         return new DefaultView(factory);
     }
 
@@ -47,7 +48,7 @@ public class AppletSetupFixture implements SetupFixture {
                 public boolean test() {
                     return applet.isActive();
                 }
-            }, Timeout.timeout(ResourceManager.getProp("disposeTimeout").Int()));
+            }, Timeout.timeout(ResourceManager.getConfigProp("disposeTimeout").Int()));
         }catch (NullPointerException e){
             throw new FixtureNotInitializedException("You need to call init() first to create applet and frame");
         }

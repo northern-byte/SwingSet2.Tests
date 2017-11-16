@@ -13,8 +13,11 @@ public class ResourceManager {
 
     private static final String BUNDLE_NAME = "swingset";
     private static final String CONFIG_NAME = "config.properties";
-    private static Properties _properties = null;
-    private static boolean _propsAreLoaded = false;
+    private static final String SPEC_NAME = "specifications.properties";
+    private static Properties configProperties = null;
+    private static Properties specificationProperties = null;
+    private static boolean configPropertiesAreLoaded = false;
+    private static boolean specificationPropertiesAreLoaded = false;
 
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
@@ -33,25 +36,45 @@ public class ResourceManager {
             throw e;
         }
     }
-
-    public static synchronized Prop getProp(String key) {
-        loadProps();
-        String value = _properties.getProperty(key);
+    public static synchronized Prop getConfigProp(String key){
+        loadConfigProperties();
+        String value = configProperties.getProperty(key);
         if (value == null) {
             throw new NoSuchPropertyException(String.format("There is no property: %s", key));
         }
         return new Prop(value);
     }
 
-    public static synchronized void loadProps() {
-        if (!_propsAreLoaded) {
+    public static synchronized Prop getSpecProp(String key){
+        loadSpecificationProperties();
+        String value = specificationProperties.getProperty(key);
+        if (value == null) {
+            throw new NoSuchPropertyException(String.format("There is no specification property: %s", key));
+        }
+        return new Prop(value);
+    }
+
+    public static synchronized void loadConfigProperties(){
+        if(!configPropertiesAreLoaded) {
+            configProperties = loadProps(CONFIG_NAME);
+            configPropertiesAreLoaded = true;
+        }
+    }
+
+    public static synchronized void loadSpecificationProperties(){
+        if(!specificationPropertiesAreLoaded) {
+            specificationProperties = loadProps(SPEC_NAME);
+            specificationPropertiesAreLoaded = true;
+        }
+    }
+
+    private static synchronized Properties loadProps(String source) {
             try {
-                _properties = new Properties();
-                _properties.load(getResInputStream(CONFIG_NAME));
-                _propsAreLoaded = true;
+                Properties properties = new Properties();
+                properties.load(getResInputStream(source));
+                return properties;
             } catch (IOException e) {
                 throw new FailedToLoadPropertiesException("Failed to load properties");
             }
-        }
     }
 }

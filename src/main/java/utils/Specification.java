@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static utils.ResourceManager.getProp;
-
 public class Specification {
     private final static String SEPARATOR = ":";
     private final static String SPECIFICATIONS_PROPERTY_NAME = "specifications";
@@ -28,7 +26,7 @@ public class Specification {
         Prop specProp = null;
         for (String spec: specificationsLinkedList) {
             try {
-                specProp = getProp(String.format("%s.%s", spec, key));
+                specProp = ResourceManager.getSpecProp((String.format("%s.%s", spec, key)));
             } catch (Exception e) {
 
             }
@@ -43,7 +41,7 @@ public class Specification {
     }
 
     public static Collection<String> getSpecifications(){
-        String specificationsString = ResourceManager.getProp(SPECIFICATIONS_PROPERTY_NAME).String();
+        String specificationsString = ResourceManager.getConfigProp(SPECIFICATIONS_PROPERTY_NAME).String();
         return Arrays.asList(specificationsString.split(SEPARATOR));
     }
 }

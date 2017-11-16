@@ -27,7 +27,7 @@ public class WaitHelper {
                 }
                 return false;
             }
-        }, Timeout.timeout(ResourceManager.getProp("timeout").Int()));
+        }, Timeout.timeout(ResourceManager.getConfigProp("timeout").Int()));
         return supplier.get();
     }
 }
