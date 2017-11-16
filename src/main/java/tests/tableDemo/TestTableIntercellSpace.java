@@ -13,7 +13,7 @@ import utils.Specification;
 
 import java.awt.*;
 
-public class TestsTableIntercellSpace {
+public class TestTableIntercellSpace {
     private SetupFixture setupFixture = new AppletSetupFixture();
     private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();

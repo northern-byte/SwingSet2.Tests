@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.Specification;
 
-public class TestsTableRowHeight {
+public class TestTableRowHeight {
     private SetupFixture setupFixture = new AppletSetupFixture();
     private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
