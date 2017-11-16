@@ -14,7 +14,7 @@ import utils.Specification;
 
 import java.awt.*;
 
-public class TableAdjustments {
+public class TestsTableIntercellSpace {
     private SetupFixture setupFixture = new AppletSetupFixture();
     private PrepareFixture prepairDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
@@ -37,7 +37,7 @@ public class TableAdjustments {
      * Check that actual maximum values of inter-cell spacing correspond to those from specification
      */
     @Test
-    public void IntercellSpacingChangesToMax() {
+    public void TestIntercellSpacingChangesToMax() {
         TableDemo demo = view.getTableDemo();
 
         demo.setIntercellSpacingToMax();
@@ -55,7 +55,7 @@ public class TableAdjustments {
      * Check that actual minimum values of inter-cell spacing correspond to those from specification
      */
     @Test
-    public void IntercellSpacingChangesToMin() {
+    public void TestIntercellSpacingChangesToMin() {
         TableDemo demo = view.getTableDemo();
 
         demo.setIntercellSpacingToMin();
@@ -76,7 +76,7 @@ public class TableAdjustments {
      * At each value, check that table's inter-cell spacing changed in linear manner in comparison to control
      */
     @Test
-    public void IntercellScalesLinearly() {
+    public void TestIntercellScalesLinearly() {
         TableDemo demo = view.getTableDemo();
 
         int position = demo.setIntercellSpacingToMax();
