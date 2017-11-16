@@ -1,6 +1,7 @@
 package abstracts;
 
 import implementations.helpers.WaitHelper;
+import interfaces.pageObjects.View;
 import org.fest.swing.core.GenericTypeMatcher;
 import org.fest.swing.fixture.FrameFixture;
 
@@ -10,10 +11,12 @@ import java.util.function.Function;
 
 public abstract class PageObject {
     protected FrameFixture frame;
+    protected View view;
     protected WaitHelper wait = new WaitHelper();
 
-    protected PageObject(FrameFixture frame){
+    protected PageObject(FrameFixture frame, View view){
         this.frame = frame;
+        this.view = view;
     }
 
     protected <T extends JComponent> GenericTypeMatcher<T> getMatcher(Class<T> supportedType,

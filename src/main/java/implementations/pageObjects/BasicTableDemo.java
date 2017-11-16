@@ -5,6 +5,7 @@ import implementations.helpers.HeaderDragAndDrop;
 import implementations.helpers.ImageHelper;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
+import interfaces.pageObjects.View;
 import org.fest.swing.data.TableCell;
 import org.fest.swing.fixture.*;
 import org.junit.Assert;
@@ -17,8 +18,8 @@ import java.awt.image.BufferedImage;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
 
-    public BasicTableDemo(FrameFixture frame) {
-        super(frame);
+    public BasicTableDemo(FrameFixture frame, View view) {
+        super(frame, view);
     }
 
     //region Helpers

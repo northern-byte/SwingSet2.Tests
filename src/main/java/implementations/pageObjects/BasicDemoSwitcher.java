@@ -3,6 +3,8 @@ package implementations.pageObjects;
 import abstracts.PageObject;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.DemoSwitcher;
+import interfaces.pageObjects.TableDemo;
+import interfaces.pageObjects.View;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JToggleButtonFixture;
 import utils.ResourceManager;
@@ -18,12 +20,13 @@ public class BasicDemoSwitcher extends PageObject implements DemoSwitcher {
             frame.toggleButton(getToggleButtonTooltipMatcher(tableDemoButtonTooltip)));
     //endregion
 
-    public BasicDemoSwitcher(FrameFixture frame) {
-        super(frame);
+    public BasicDemoSwitcher(FrameFixture frame, View view) {
+        super(frame, view);
     }
 
     @Override
-    public void goToTableDemo(){
+    public TableDemo goToTableDemo(){
         tableDemoButton.get().click();
+        return view.getTableDemo();
     }
 }
