@@ -5,7 +5,6 @@ import implementations.fixtures.TableDemoPrepareFixture;
 import interfaces.fixtures.PrepareFixture;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
-import interfaces.pageObjects.View;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,14 +13,13 @@ import utils.Specification;
 
 public class TestsTableRowHeight {
     private SetupFixture setupFixture = new AppletSetupFixture();
-    private PrepareFixture prepairDemo = new TableDemoPrepareFixture();
+    private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
-    private View view;
+    private TableDemo demo;
 
     @Before
     public void Setup() {
-        view = setupFixture.init();
-        prepairDemo.prepair(view);
+        demo = prepairDemo.prepair(setupFixture.init());
     }
 
     @After
@@ -36,8 +34,6 @@ public class TestsTableRowHeight {
      */
     @Test
     public void TestRowHeightChangesToMax() {
-        TableDemo demo = view.getTableDemo();
-
         demo.setRowHeightToMax();
         int newHeight = demo.getTableRowHeight();
 
@@ -53,8 +49,6 @@ public class TestsTableRowHeight {
      */
     @Test
     public void TestRowHeightChangesToMin() {
-        TableDemo demo = view.getTableDemo();
-
         demo.setRowHeightToMin();
         int newHeight = demo.getTableRowHeight();
 
@@ -73,8 +67,6 @@ public class TestsTableRowHeight {
      */
     @Test
     public void TestRowHeightScalesLinearly() {
-        TableDemo demo = view.getTableDemo();
-        
         int position = demo.setRowHeightToMax();
         int maxHeight = demo.getTableRowHeight();
         double heightRatio = maxHeight / position;

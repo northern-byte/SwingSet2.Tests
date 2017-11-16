@@ -5,7 +5,6 @@ import implementations.fixtures.TableDemoPrepareFixture;
 import interfaces.fixtures.PrepareFixture;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
-import interfaces.pageObjects.View;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,14 +15,13 @@ import java.awt.*;
 
 public class TestsTableIntercellSpace {
     private SetupFixture setupFixture = new AppletSetupFixture();
-    private PrepareFixture prepairDemo = new TableDemoPrepareFixture();
+    private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
-    private View view;
+    private TableDemo demo;
 
     @Before
     public void Setup() {
-        view = setupFixture.init();
-        prepairDemo.prepair(view);
+        demo = prepairDemo.prepair(setupFixture.init());
     }
 
     @After
@@ -38,8 +36,6 @@ public class TestsTableIntercellSpace {
      */
     @Test
     public void TestIntercellSpacingChangesToMax() {
-        TableDemo demo = view.getTableDemo();
-
         demo.setIntercellSpacingToMax();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
@@ -56,8 +52,6 @@ public class TestsTableIntercellSpace {
      */
     @Test
     public void TestIntercellSpacingChangesToMin() {
-        TableDemo demo = view.getTableDemo();
-
         demo.setIntercellSpacingToMin();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
@@ -77,8 +71,6 @@ public class TestsTableIntercellSpace {
      */
     @Test
     public void TestIntercellScalesLinearly() {
-        TableDemo demo = view.getTableDemo();
-
         int position = demo.setIntercellSpacingToMax();
         Dimension maxSpacing = demo.getTableIntercellSpacing();
         int heightRatio = maxSpacing.height / position;

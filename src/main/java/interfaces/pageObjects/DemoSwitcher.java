@@ -1,5 +1,5 @@
 package interfaces.pageObjects;
 
 public interface DemoSwitcher {
-    void goToTableDemo();
+    TableDemo goToTableDemo();
 }

@@ -4,30 +4,31 @@ import implementations.fixtures.AppletSetupFixture;
 import implementations.fixtures.TableDemoPrepareFixture;
 import interfaces.fixtures.PrepareFixture;
 import interfaces.fixtures.SetupFixture;
-import interfaces.pageObjects.View;
+import interfaces.pageObjects.TableDemo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import utils.Specification;
 
-public class ReorderingColumns {
+public class TestReorderingColumns {
 
     SetupFixture setupFixture = new AppletSetupFixture();
-    PrepareFixture prepairDemo = new TableDemoPrepareFixture();
-    View view;
+    PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
+    private final Specification spec = new Specification();
+    TableDemo demo;
 
     @Before
     public void Setup(){
-        view = setupFixture.init();
-        prepairDemo.prepair(view);
+        demo = prepairDemo.prepair(setupFixture.init());
     }
 
     @After
     public void Close(){
         setupFixture.dispose();
     }
-
+    
     @Test //Prototype
-    public void DragColumnsLeft(){
-        view.getTableDemo().clickTable();
+    public void Prototype(){
+        demo.clickTable();
     }
 }
