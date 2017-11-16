@@ -41,7 +41,7 @@ public class TestsTableRowHeight {
         demo.setRowHeightToMax();
         int newHeight = demo.getTableRowHeight();
 
-        int maxHight = spec.get("tableDemo.MaxRowHeight").Int();
+        int maxHight = spec.get("tableDemo.maxRowHeight").Int();
 
         Assert.assertTrue(newHeight == maxHight);
     }
@@ -58,7 +58,7 @@ public class TestsTableRowHeight {
         demo.setRowHeightToMin();
         int newHeight = demo.getTableRowHeight();
 
-        int minHight = spec.get("tableDemo.MinRowHeight").Int();
+        int minHight = spec.get("tableDemo.minRowHeight").Int();
 
         Assert.assertTrue(newHeight == minHight);
     }
