@@ -136,8 +136,6 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         Assert.assertTrue(imageHelper.imagesAreEqual(bimage, expected));
     }
 
-
-
     @Override
     public int getIntercellSpacingMax() {
         return interCellSpacingSlider.get().target.getMaximum();
@@ -174,5 +172,38 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     @Override
     public Dimension getTableIntercellSpacing() {
         return tableView.get().target.getIntercellSpacing();
+    }
+
+    @Override
+    public int getRowHeightMax() {
+        return rowHeightSlider.get().target.getMaximum();
+    }
+
+    @Override
+    public int getRowHeightMin() {
+        return rowHeightSlider.get().target.getMinimum();
+    }
+
+    @Override
+    public int setRowHeightToMax() {
+        JSliderFixture slider = rowHeightSlider.get().slideToMaximum();
+        return slider.target.getValue();
+    }
+
+    @Override
+    public int getTableRowHeight() {
+        return tableView.get().target.getRowHeight();
+    }
+
+    @Override
+    public int setRowHeightToMin() {
+        JSliderFixture slider = rowHeightSlider.get().slideToMinimum();
+        return slider.target.getValue();
+    }
+
+    @Override
+    public int setRowHeightTo(int value){
+        JSliderFixture slider = rowHeightSlider.get().slideTo(value);
+        return slider.target.getValue();
     }
 }

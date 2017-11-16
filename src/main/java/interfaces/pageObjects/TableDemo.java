@@ -19,5 +19,16 @@ public interface TableDemo extends Demo {
 
     Dimension getTableIntercellSpacing();
 
+    int getRowHeightMax();
+
+    int getRowHeightMin();
+
+    int setRowHeightToMax();
+
+    int getTableRowHeight();
+
+    int setRowHeightToMin();
+
+    int setRowHeightTo(int value);
 }
 
