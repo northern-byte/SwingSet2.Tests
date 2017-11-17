@@ -1,8 +1,10 @@
 package implementations.pageObjects;
 
 import abstracts.PageObject;
-import implementations.helpers.HeaderDragAndDrop;
+import implementations.helpers.DragAndDropHelper;
 import implementations.helpers.ImageHelper;
+import implementations.helpers.TableHeaderHelper;
+import implementations.helpers.TextMatcherHelper;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
 import interfaces.pageObjects.View;
@@ -23,7 +25,9 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     //region Helpers
-    protected HeaderDragAndDrop dragAndDrop = new HeaderDragAndDrop(frame.robot);
+    protected DragAndDropHelper dragAndDrop = new DragAndDropHelper(frame.robot);
+    protected TableHeaderHelper headerHelper = new TableHeaderHelper();
+    protected TextMatcherHelper textMatcherHelper = new TextMatcherHelper();
     protected ImageHelper imageHelper = new ImageHelper();
     //endregion
 
@@ -86,19 +90,19 @@ public class BasicTableDemo extends PageObject implements TableDemo {
 //        selectionModeComboBox.get().selectItem(0);
 //        resizeModeComboBox.get().selectItem(0);
         JTableHeader header = table.tableHeader().target;
-        Point from = dragAndDrop.pointAtName(header, dragAndDrop.exactText("First Name"));
-        Point to = dragAndDrop.pointAtName(header, dragAndDrop.containsText("Movie"));
+        Point from = headerHelper.pointAtName(header, textMatcherHelper.exactText("First Name"));
+        Point to = headerHelper.pointAtName(header, textMatcherHelper.containsText("Movie"));
         dragAndDrop.drag(header, from);
         dragAndDrop.drop(header,to);
 
         Assert.assertTrue(table.cell("Mike").column == 2);
 
-        Point b1 = dragAndDrop.rightBorder(header, dragAndDrop.containsText("First Name"));
-        Point to2 = dragAndDrop.pointAtName(header, dragAndDrop.containsText("Movie"));
+        Point b1 = headerHelper.rightBorder(header, textMatcherHelper.containsText("First Name"));
+        Point to2 = headerHelper.pointAtName(header, textMatcherHelper.containsText("Movie"));
         dragAndDrop.dragAndDrop(header, b1, to2);
 
-        Point b2 = dragAndDrop.leftBorder(header, dragAndDrop.containsText("Movie"));
-        Point to3 = dragAndDrop.pointAtName(header, dragAndDrop.containsText("Last"));
+        Point b2 = headerHelper.leftBorder(header, textMatcherHelper.containsText("Movie"));
+        Point to3 = headerHelper.pointAtName(header, textMatcherHelper.containsText("Last"));
         dragAndDrop.dragAndDrop(header, b2, to3);
 
         Dimension originalSpacing = table.target.getIntercellSpacing();
@@ -221,11 +225,11 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     @Override
     public void drapAndDropColumnToColumn(String columnToDrag, String columnWhereToDrop) {
         JTableHeader header = tableView.get().tableHeader().target;
-        Point from = dragAndDrop.pointAtName(header, dragAndDrop.exactText(columnToDrag));
-        Point to = dragAndDrop.pointAtName(header, dragAndDrop.exactText(columnWhereToDrop));
+        Point from = headerHelper.pointAtName(header, textMatcherHelper.exactText(columnToDrag));
+        Point to = headerHelper.pointAtName(header, textMatcherHelper.exactText(columnWhereToDrop));
         dragAndDrop.dragAndDrop(header, from, to);
     }
-
+    
     @Override
     public void allowReordering() {
         isColumnReorderingAllowedCheckBox.get().check();
