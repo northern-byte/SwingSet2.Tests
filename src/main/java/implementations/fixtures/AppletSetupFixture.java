@@ -31,6 +31,7 @@ public class AppletSetupFixture implements SetupFixture {
             }
         });
         frame = new FrameFixture(applet);
+        frame.robot.settings().delayBetweenEvents(ResourceManager.getConfigProp("delayBetweenEvents").Int());
         factory = new BasicViewFactory(frame);
         ResourceManager.loadConfigProperties();
         ResourceManager.loadSpecificationProperties();
