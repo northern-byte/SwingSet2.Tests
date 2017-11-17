@@ -207,4 +207,22 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         JSliderFixture slider = rowHeightSlider.get().slideTo(value);
         return slider.target.getValue();
     }
+
+    @Override
+    public int getColumnIndex(String columnName) {
+        return tableView.get().columnIndexFor(columnName);
+    }
+
+    @Override
+    public String getStringFromTableCell(int row, int column) {
+        return (String)tableView.get().target.getValueAt(row, column);
+    }
+
+    @Override
+    public void drapAndDropColumnToColumn(String columnToDrag, String columnWhereToDrop) {
+        JTableHeader header = tableView.get().tableHeader().target;
+        Point from = dragAndDrop.pointAtName(header, dragAndDrop.exactText(columnToDrag));
+        Point to = dragAndDrop.pointAtName(header, dragAndDrop.exactText(columnWhereToDrop));
+        dragAndDrop.dragAndDrop(header, from, to);
+    }
 }

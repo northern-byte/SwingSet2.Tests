@@ -30,5 +30,11 @@ public interface TableDemo extends Demo {
     int setRowHeightToMin();
 
     int setRowHeightTo(int value);
+
+    int getColumnIndex(String columnName);
+
+    String getStringFromTableCell(int rowNumber, int startIndex);
+
+    void drapAndDropColumnToColumn(String columnToDrag, String columnWhereToDrop);
 }
 
