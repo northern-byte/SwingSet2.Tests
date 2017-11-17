@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.Specification;
 
+import java.awt.*;
+
 public class TestReorderingColumns {
 
     SetupFixture setupFixture = new AppletSetupFixture();
@@ -19,12 +21,12 @@ public class TestReorderingColumns {
     TableDemo demo;
 
     @Before
-    public void Setup(){
+    public void Setup() {
         demo = prepairDemo.prepair(setupFixture.init());
     }
 
     @After
-    public void Close(){
+    public void Close() {
         setupFixture.dispose();
     }
 
@@ -35,12 +37,13 @@ public class TestReorderingColumns {
      * Get index of column which place we'll occupy
      * Load number of the row we'll use as for a check
      * Get an original value of a cell in the column we are going to drag and specified row
+     * Get points where to drag from and to
      * Drag and drop column to a new place
      * Get value from the cell we projected our original value to be in
      * Check if the values match
      */
     @Test
-    public void DragColumnToNewPosition(){
+    public void DragColumnToNewPosition() {
         String columnToDrag = spec.get("tableDemo.columnToDrag").String();
         String columnWhereToDrop = spec.get("tableDemo.columnWhereToDrag").String();
 
@@ -53,7 +56,10 @@ public class TestReorderingColumns {
 
         String originalCellValue = demo.getStringFromTableCell(rowNumber, startIndex);
 
-        demo.drapAndDropColumnToColumn(columnToDrag, columnWhereToDrop);
+        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
+        Point dropTo = demo.getColumnHeaderPoint(columnWhereToDrop);
+
+        demo.drapAndDrop(dragFrom, dropTo);
 
         String newCellValue = demo.getStringFromTableCell(rowNumber, endIndex);
 
@@ -61,7 +67,7 @@ public class TestReorderingColumns {
     }
 
     @Test //Prototype
-    public void Prototype(){
+    public void Prototype() {
         demo.clickTable();
     }
 }

@@ -35,10 +35,18 @@ public interface TableDemo extends Demo {
 
     String getStringFromTableCell(int rowNumber, int startIndex);
 
-    void drapAndDropColumnToColumn(String columnToDrag, String columnWhereToDrop);
+    void drapAndDrop(Point from, Point to);
+
+    Point getColumnHeaderPoint(String columnName);
 
     void allowReordering();
 
     void forbidReordering();
+
+    Point getCellPoint(String cellText);
+
+    void clickCell(String cellText);
+
+    void doubleClickCell(String cellText);
 }
 

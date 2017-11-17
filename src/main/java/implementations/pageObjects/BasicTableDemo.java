@@ -8,6 +8,8 @@ import implementations.helpers.TextMatcherHelper;
 import implementations.wrappers.Lazy;
 import interfaces.pageObjects.TableDemo;
 import interfaces.pageObjects.View;
+import org.fest.swing.core.MouseButton;
+import org.fest.swing.core.MouseClickInfo;
 import org.fest.swing.data.TableCell;
 import org.fest.swing.fixture.*;
 import org.junit.Assert;
@@ -223,13 +225,17 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
-    public void drapAndDropColumnToColumn(String columnToDrag, String columnWhereToDrop) {
+    public void drapAndDrop(Point from, Point to) {
         JTableHeader header = tableView.get().tableHeader().target;
-        Point from = headerHelper.pointAtName(header, textMatcherHelper.exactText(columnToDrag));
-        Point to = headerHelper.pointAtName(header, textMatcherHelper.exactText(columnWhereToDrop));
         dragAndDrop.dragAndDrop(header, from, to);
     }
-    
+
+    @Override
+    public Point getColumnHeaderPoint(String columnName) {
+        JTableHeader header = tableView.get().tableHeader().target;
+        return headerHelper.pointAtName(header, textMatcherHelper.exactText(columnName));
+    }
+
     @Override
     public void allowReordering() {
         isColumnReorderingAllowedCheckBox.get().check();
@@ -238,5 +244,24 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     @Override
     public void forbidReordering() {
         isColumnReorderingAllowedCheckBox.get().uncheck();
+    }
+
+    @Override
+    public Point getCellPoint(String cellText) {
+        TableCell cell = tableView.get().cell(cellText);
+        Rectangle rectangle = tableView.get().target.getCellRect(cell.row, cell.column, true);
+        return new Point(rectangle.x + rectangle.width / 2, rectangle.y + rectangle.height);
+    }
+
+    @Override
+    public void clickCell(String cellText) {
+        TableCell cell = tableView.get().cell(cellText);
+        tableView.get().click(cell, MouseButton.LEFT_BUTTON);
+    }
+
+    @Override
+    public void doubleClickCell(String cellText) {
+        TableCell cell = tableView.get().cell(cellText);
+        tableView.get().click(cell, MouseClickInfo.button(MouseButton.LEFT_BUTTON).times(2));
     }
 }
