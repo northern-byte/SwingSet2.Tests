@@ -43,7 +43,7 @@ public class TestReorderingColumns {
      * Check if the values match
      */
     @Test
-    public void DragColumnToNewPosition() {
+    public void TestDragColumnToNewPosition() {
         String columnToDrag = spec.get("tableDemo.columnToDrag").String();
         String columnWhereToDrop = spec.get("tableDemo.columnWhereToDrag").String();
 
@@ -76,7 +76,7 @@ public class TestReorderingColumns {
      * Check that column is in the same place(same index)
      */
     @Test
-    public void DragColumnUp() {
+    public void TestDragColumnUp() {
         String columnToDrag = spec.get("tableDemo.columnToDrag").String();
 
         demo.allowReordering();
@@ -103,7 +103,7 @@ public class TestReorderingColumns {
      * Check that column is in the desired place(by index)
      */
     @Test
-    public void DragColumnUpAndToTheSide() {
+    public void TestDragColumnUpAndToTheSide() {
         String columnToDrag = spec.get("tableDemo.columnWhereToDrag").String();
         String columnWhereToDrop = spec.get("tableDemo.columnToDrag").String();
 
@@ -132,7 +132,7 @@ public class TestReorderingColumns {
      * Check that cell's position didn't change
      */
     @Test
-    public void TryDragCellUpAndToTheSide() {
+    public void TestTryDragCellUpAndToTheSide() {
         String cellToDrag = spec.get("tableDemo.cellToDrag").String();
         String cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").String();
 
