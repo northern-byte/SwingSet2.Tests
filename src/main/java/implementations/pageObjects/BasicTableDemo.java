@@ -225,4 +225,14 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         Point to = dragAndDrop.pointAtName(header, dragAndDrop.exactText(columnWhereToDrop));
         dragAndDrop.dragAndDrop(header, from, to);
     }
+
+    @Override
+    public void allowReordering() {
+        isColumnReorderingAllowedCheckBox.get().check();
+    }
+
+    @Override
+    public void forbidReordering() {
+        isColumnReorderingAllowedCheckBox.get().uncheck();
+    }
 }

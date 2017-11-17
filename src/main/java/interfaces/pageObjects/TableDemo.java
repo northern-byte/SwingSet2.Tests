@@ -36,5 +36,9 @@ public interface TableDemo extends Demo {
     String getStringFromTableCell(int rowNumber, int startIndex);
 
     void drapAndDropColumnToColumn(String columnToDrag, String columnWhereToDrop);
+
+    void allowReordering();
+
+    void forbidReordering();
 }
 
