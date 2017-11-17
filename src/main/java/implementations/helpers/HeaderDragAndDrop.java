@@ -7,6 +7,7 @@ import org.fest.swing.edt.GuiQuery;
 import org.fest.swing.util.Pair;
 import org.fest.swing.util.TextMatcher;
 
+import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.util.Objects;
@@ -67,16 +68,28 @@ public class HeaderDragAndDrop {
         return indexAndLocation.ii;
     }
 
-    public void drag(JTableHeader target, Point from) {
+    public void drag(JComponent target, Point from) {
         dragAndDrop.drag(target, from);
     }
 
-    public void drop(JTableHeader target, Point to) {
+    public void drop(JComponent target, Point to) {
         dragAndDrop.drop(target, to);
     }
 
-    public void dragAndDrop(JTableHeader target, Point from, Point to){
+    public void dragAndDrop(JComponent target, Point from, Point to){
         drag(target, from);
+        Point current = from;
+        int stepX = (to.x - from.x) / 5;
+        int stepY = (to.y - from.y) / 5;
+        while (current.x < to.x - stepX || current.y < to.y - stepY){
+            if(current.x < to.x - stepX){
+                current.x += stepX;
+            }
+            if(current.y < to.y - stepY){
+                current.y += stepY;
+            }
+            dragAndDrop.dragOver(target, current);
+        }
         drop(target, to);
     }
 
