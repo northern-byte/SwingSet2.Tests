@@ -149,6 +149,30 @@ public class TestReorderingColumns {
         Assert.assertEquals(dragFrom.y, newPosition.y);
     }
 
+    /**
+     * Go to Table Demo
+     * Make sure, that reordering is forbidden
+     * Get points to drag from and to
+     * Try to drag and drop one column onto another
+     * Get new Point value for column we tried to drag
+     * Check that the column is in the same position
+     */
+    @Test
+    public void TestReorderingDisabled(){
+        demo.forbidReordering();
+
+        String columnToDrag = spec.get("tableDemo.columnToDrag").String();
+        String columnWhereToDrop = spec.get("tableDemo.columnWhereToDrag").String();
+
+        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
+        Point dropTo = demo.getColumnHeaderPoint(columnWhereToDrop);
+
+        demo.drapAndDrop(dragFrom, dropTo);
+
+        Point actual = demo.getColumnHeaderPoint(columnToDrag);
+        Assert.assertEquals(dragFrom, actual);
+    }
+
     @Test //Prototype
     public void Prototype() {
         demo.clickTable();
