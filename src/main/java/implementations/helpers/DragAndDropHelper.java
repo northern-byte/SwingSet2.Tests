@@ -5,6 +5,7 @@ import org.fest.swing.core.Robot;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class DragAndDropHelper {
 
@@ -23,8 +24,27 @@ public class DragAndDropHelper {
     }
 
     public void dragAndDrop(JComponent target, Point from, Point to){
-        Point current = new Point(from.x, from.y);
         drag(target, from);
+        dragOver(target, from, to);
+        drop(target, to);
+    }
+
+    public void dragAndDrop(JComponent target, Point from, List<Point> to){
+        drag(target, from);
+        dragOver(target, from, to);
+        drop(target, to.get(to.size() - 1));
+    }
+
+    public void dragOver(JComponent target, Point from, List<Point> points){
+        Point currentFrom = from;
+        for(Point to : points){
+            dragOver(target, currentFrom, to);
+            currentFrom = to;
+        }
+    }
+
+    public void dragOver(JComponent target, Point from, Point to) {
+        Point current = new Point(from.x, from.y);
 
         int stepX = (to.x - current.x) / 5;
         int stepY = (to.y - current.y) / 5;
@@ -39,7 +59,5 @@ public class DragAndDropHelper {
             }
             dragAndDrop.dragOver(target, current);
         }
-
-        drop(target, to);
     }
 }
