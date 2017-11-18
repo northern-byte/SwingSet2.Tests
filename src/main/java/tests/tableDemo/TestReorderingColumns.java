@@ -12,6 +12,7 @@ import org.junit.Test;
 import utils.Specification;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class TestReorderingColumns {
 
@@ -171,6 +172,36 @@ public class TestReorderingColumns {
 
         Point actual = demo.getColumnHeaderPoint(columnToDrag);
         Assert.assertEquals(dragFrom, actual);
+    }
+
+    /**
+     * Go to Table Demo
+     * Make sure, that reordering is allowed
+     * Get index of the column we want to drag
+     * Get index of column where we want to drag
+     * Get points where to drag from and to
+     * Drag column to a new place
+     * Drag column to it's original place
+     * Get index of column we dragged
+     * Check that column is in the same position as originally
+     */
+    @Test
+    public void TestDragColumnToNewPositionAndBack() {
+        String columnToDrag = spec.get("tableDemo.columnToDrag").String();
+        String columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").String();
+
+        demo.allowReordering();
+
+        int startIndex = demo.getColumnIndex(columnToDrag);
+
+        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
+        Point dragTo = demo.getColumnHeaderPoint(columnWhereToDrag);
+
+        demo.drapAndDrop(dragFrom, Arrays.asList(dragTo, dragFrom));
+
+        int endIndex = demo.getColumnIndex(columnToDrag);
+
+        Assert.assertEquals(startIndex, endIndex);
     }
 
     @Test //Prototype
