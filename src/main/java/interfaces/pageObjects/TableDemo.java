@@ -37,6 +37,8 @@ public interface TableDemo extends Demo {
 
     void drapAndDrop(Point from, Point to);
 
+    void drapAndDrop(Point from, java.util.List<Point> to);
+
     Point getColumnHeaderPoint(String columnName);
 
     void allowReordering();

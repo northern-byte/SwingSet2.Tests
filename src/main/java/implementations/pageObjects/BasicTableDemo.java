@@ -19,6 +19,7 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
 
@@ -226,6 +227,12 @@ public class BasicTableDemo extends PageObject implements TableDemo {
 
     @Override
     public void drapAndDrop(Point from, Point to) {
+        JTableHeader header = tableView.get().tableHeader().target;
+        dragAndDrop.dragAndDrop(header, from, to);
+    }
+
+    @Override
+    public void drapAndDrop(Point from, List<Point> to) {
         JTableHeader header = tableView.get().tableHeader().target;
         dragAndDrop.dragAndDrop(header, from, to);
     }
