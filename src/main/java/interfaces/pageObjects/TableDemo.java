@@ -33,6 +33,12 @@ public interface TableDemo extends Demo {
 
     int getColumnIndex(String columnName);
 
+    int getColumnCount();
+
+    int getColumnWidth(int index);
+
+    int getColumnWidth(String columnName);
+
     String getStringFromTableCell(int rowNumber, int startIndex);
 
     void drapAndDrop(Point from, Point to);
@@ -40,6 +46,8 @@ public interface TableDemo extends Demo {
     void drapAndDrop(Point from, java.util.List<Point> to);
 
     Point getColumnHeaderPoint(String columnName);
+
+    Point getColumnHeaderRightBorderPoint(String columnName);
 
     void allowReordering();
 
@@ -50,5 +58,6 @@ public interface TableDemo extends Demo {
     void clickCell(String cellText);
 
     void doubleClickCell(String cellText);
-}
 
+    void selectResizeMode(String resizeModeName);
+}

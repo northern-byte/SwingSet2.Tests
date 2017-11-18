@@ -221,6 +221,22 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
+    public int getColumnCount(){
+        return tableView.get().target.getColumnModel().getColumnCount();
+    }
+
+    @Override
+    public int getColumnWidth(int index){
+        return tableView.get().target.getColumnModel().getColumn(index).getWidth();
+    }
+
+    @Override
+    public int getColumnWidth(String columnName){
+        int index = getColumnIndex(columnName);
+        return getColumnWidth(index);
+    }
+
+    @Override
     public String getStringFromTableCell(int row, int column) {
         return (String)tableView.get().target.getValueAt(row, column);
     }
@@ -241,6 +257,12 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     public Point getColumnHeaderPoint(String columnName) {
         JTableHeader header = tableView.get().tableHeader().target;
         return headerHelper.pointAtName(header, textMatcherHelper.exactText(columnName));
+    }
+
+    @Override
+    public Point getColumnHeaderRightBorderPoint(String columnName) {
+        JTableHeader header = tableView.get().tableHeader().target;
+        return headerHelper.rightBorder(header, textMatcherHelper.exactText(columnName));
     }
 
     @Override
@@ -270,5 +292,10 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     public void doubleClickCell(String cellText) {
         TableCell cell = tableView.get().cell(cellText);
         tableView.get().click(cell, MouseClickInfo.button(MouseButton.LEFT_BUTTON).times(2));
+    }
+
+    @Override
+    public void selectResizeMode(String resizeModeName) {
+        resizeModeComboBox.get().selectItem(resizeModeName);
     }
 }
