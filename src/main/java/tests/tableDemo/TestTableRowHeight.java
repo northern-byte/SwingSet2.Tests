@@ -13,13 +13,13 @@ import utils.Specification;
 
 public class TestTableRowHeight {
     private SetupFixture setupFixture = new AppletSetupFixture();
-    private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
+    private PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
     private TableDemo demo;
 
     @Before
     public void Setup() {
-        demo = prepairDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepair(setupFixture.init());
     }
 
     @After
@@ -37,9 +37,9 @@ public class TestTableRowHeight {
         demo.setRowHeightToMax();
         int newHeight = demo.getTableRowHeight();
 
-        int maxHight = spec.get("tableDemo.maxRowHeight").Int();
+        int maxHeight = spec.get("tableDemo.maxRowHeight").Int();
 
-        Assert.assertTrue(newHeight == maxHight);
+        Assert.assertTrue(newHeight == maxHeight);
     }
 
     /**
@@ -52,9 +52,9 @@ public class TestTableRowHeight {
         demo.setRowHeightToMin();
         int newHeight = demo.getTableRowHeight();
 
-        int minHight = spec.get("tableDemo.minRowHeight").Int();
+        int minHeight = spec.get("tableDemo.minRowHeight").Int();
 
-        Assert.assertTrue(newHeight == minHight);
+        Assert.assertTrue(newHeight == minHeight);
     }
 
     /**

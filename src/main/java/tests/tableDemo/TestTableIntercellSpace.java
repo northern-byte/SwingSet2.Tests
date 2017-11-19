@@ -14,14 +14,14 @@ import utils.Specification;
 import java.awt.*;
 
 public class TestTableIntercellSpace {
-    private SetupFixture setupFixture = new AppletSetupFixture();
-    private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
+    private final SetupFixture setupFixture = new AppletSetupFixture();
+    private final PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
     private TableDemo demo;
 
     @Before
     public void Setup() {
-        demo = prepairDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepair(setupFixture.init());
     }
 
     @After
