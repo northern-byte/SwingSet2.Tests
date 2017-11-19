@@ -15,6 +15,7 @@ public class ImageHelper {
         BufferedImage bufferedImage = null;
         try {
             bufferedImage = ImageIO.read(imageStream);
+            imageStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
