@@ -29,6 +29,29 @@ public class TestColumnResizing {
         setupFixture.dispose();
     }
 
+    private class TestData {
+        private String resizeModeOff;
+        private String resizeModeColumnBoundaries;
+        private String resizeModeSubsequentColumns;
+        private String resizeModeLastColumn;
+        private String resizeModeAllColumns;
+
+        private String columnToResizeName;
+        private String columnWhereToResizeName;
+
+        public TestData invoke() {
+            resizeModeOff = spec.get("tableDemo.resizeOff").String();
+            resizeModeColumnBoundaries = spec.get("tableDemo.resizeColumnBoundaries").String();
+            resizeModeSubsequentColumns = spec.get("tableDemo.resizeSubsequentColumns").String();
+            resizeModeLastColumn = spec.get("tableDemo.resizeLastColumn").String();
+            resizeModeAllColumns = spec.get("tableDemo.resizeAllColumns").String();
+
+            columnToResizeName = spec.get("tableDemo.columnToResize").String();
+            columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
+            return this;
+        }
+    }
+
     /**
      * Go to Table Demo
      * Select autoresize mode 'Off'
@@ -38,15 +61,14 @@ public class TestColumnResizing {
      */
     @Test
     public void TestAutoResizeOff(){
-        String resizeModeName = spec.get("tableDemo.resizeOff").String();
-        demo.selectResizeMode(resizeModeName);
+        TestData testData = new TestData().invoke();
+
+        demo.selectResizeMode(testData.resizeModeOff);
         int[] originalWidths = getColumnWidths();
 
-        String columnToResizeName = spec.get("tableDemo.columnToResize").String();
-        String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
-        int resizeColumnIndex = demo.getColumnIndex(columnToResizeName);
+        int resizeColumnIndex = demo.getColumnIndex(testData.columnToResizeName);
 
-        resizeColumn(columnToResizeName, columnWhereToResizeName);
+        resizeColumn(testData.columnToResizeName, testData.columnWhereToResizeName);
 
         for(int i = 0; i < originalWidths.length; i++){
             int currentWidth = demo.getColumnWidth(i);
@@ -67,15 +89,14 @@ public class TestColumnResizing {
      */
     @Test
     public void TestAutoResizeColumnBoundaries(){
-        String resizeModeName = spec.get("tableDemo.resizeColumnBoundaries").String();
-        demo.selectResizeMode(resizeModeName);
+        TestData testData = new TestData().invoke();
+
+        demo.selectResizeMode(testData.resizeModeColumnBoundaries);
         int[] originalWidths = getColumnWidths();
 
-        String columnToResizeName = spec.get("tableDemo.columnToResize").String();
-        String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
-        int resizeColumnIndex = demo.getColumnIndex(columnToResizeName);
+        int resizeColumnIndex = demo.getColumnIndex(testData.columnToResizeName);
 
-        resizeColumn(columnToResizeName, columnWhereToResizeName);
+        resizeColumn(testData.columnToResizeName, testData.columnWhereToResizeName);
 
         for(int i = 0; i < originalWidths.length; i++){
             int currentWidth = demo.getColumnWidth(i);
@@ -98,15 +119,14 @@ public class TestColumnResizing {
      */
     @Test
     public void TestAutoResizeSubsequentColumns(){
-        String resizeModeName = spec.get("tableDemo.resizeSubsequentColumns").String();
-        demo.selectResizeMode(resizeModeName);
+        TestData testData = new TestData().invoke();
+
+        demo.selectResizeMode(testData.resizeModeSubsequentColumns);
         int[] originalWidths = getColumnWidths();
 
-        String columnToResizeName = spec.get("tableDemo.columnToResize").String();
-        String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
-        int resizeColumnIndex = demo.getColumnIndex(columnToResizeName);
+        int resizeColumnIndex = demo.getColumnIndex(testData.columnToResizeName);
 
-        resizeColumn(columnToResizeName, columnWhereToResizeName);
+        resizeColumn(testData.columnToResizeName, testData.columnWhereToResizeName);
 
         for(int i = 0; i < originalWidths.length; i++){
             int currentWidth = demo.getColumnWidth(i);
@@ -129,15 +149,14 @@ public class TestColumnResizing {
      */
     @Test
     public void TestAutoResizeLastColumn(){
-        String resizeModeName = spec.get("tableDemo.resizeLastColumn").String();
-        demo.selectResizeMode(resizeModeName);
+        TestData testData = new TestData().invoke();
+
+        demo.selectResizeMode(testData.resizeModeLastColumn);
         int[] originalWidths = getColumnWidths();
 
-        String columnToResizeName = spec.get("tableDemo.columnToResize").String();
-        String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
-        int resizeColumnIndex = demo.getColumnIndex(columnToResizeName);
+        int resizeColumnIndex = demo.getColumnIndex(testData.columnToResizeName);
 
-        resizeColumn(columnToResizeName, columnWhereToResizeName);
+        resizeColumn(testData.columnToResizeName, testData.columnWhereToResizeName);
 
         for(int i = 0; i < originalWidths.length; i++){
             int currentWidth = demo.getColumnWidth(i);
@@ -160,15 +179,14 @@ public class TestColumnResizing {
      */
     @Test
     public void TestAutoResizeAllColumns(){
-        String resizeModeName = spec.get("tableDemo.resizeAllColumns").String();
-        demo.selectResizeMode(resizeModeName);
+        TestData testData = new TestData().invoke();
+
+        demo.selectResizeMode(testData.resizeModeAllColumns);
         int[] originalWidths = getColumnWidths();
 
-        String columnToResizeName = spec.get("tableDemo.columnToResize").String();
-        String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
-        int resizeColumnIndex = demo.getColumnIndex(columnToResizeName);
+        int resizeColumnIndex = demo.getColumnIndex(testData.columnToResizeName);
 
-        resizeColumn(columnToResizeName, columnWhereToResizeName);
+        resizeColumn(testData.columnToResizeName, testData.columnWhereToResizeName);
 
         for(int i = 0; i < originalWidths.length; i++){
             int currentWidth = demo.getColumnWidth(i);
@@ -191,26 +209,23 @@ public class TestColumnResizing {
      */
     @Test
     public void TestResizeTwiceWithDifferentModes(){
-        String firstResizeModeName = spec.get("tableDemo.resizeColumnBoundaries").String();
-        demo.selectResizeMode(firstResizeModeName);
+        TestData testData = new TestData().invoke();
 
-        String columnToResizeName = spec.get("tableDemo.columnToResize").String();
-        String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
+        demo.selectResizeMode(testData.resizeModeColumnBoundaries);
 
-        Point resizePoint = demo.getColumnHeaderRightBorderPoint(columnToResizeName);
-        Point resizeToPoint = demo.getColumnHeaderRightBorderPoint(columnWhereToResizeName);
+        Point resizePoint = demo.getColumnHeaderRightBorderPoint(testData.columnToResizeName);
+        Point resizeToPoint = demo.getColumnHeaderRightBorderPoint(testData.columnWhereToResizeName);
         demo.drapAndDrop(resizePoint, resizeToPoint);
         int[] originalWidths = getColumnWidths();
 
-        String secondResizeModeName = spec.get("tableDemo.resizeAllColumns").String();
-        demo.selectResizeMode(secondResizeModeName);
+        demo.selectResizeMode(testData.resizeModeAllColumns);
 
-        Point newResizePoint = demo.getColumnHeaderRightBorderPoint(columnToResizeName);
+        Point newResizePoint = demo.getColumnHeaderRightBorderPoint(testData.columnToResizeName);
         demo.drapAndDrop(newResizePoint, resizePoint);
 
         int[] newWidths = getColumnWidths();
 
-        int resizeColumnIndex = demo.getColumnIndex(columnToResizeName);
+        int resizeColumnIndex = demo.getColumnIndex(testData.columnToResizeName);
 
         for(int i = 0; i< newWidths.length; i++){
             if(i != resizeColumnIndex){
@@ -237,4 +252,6 @@ public class TestColumnResizing {
         }
         return originalWidths;
     }
+
+
 }
