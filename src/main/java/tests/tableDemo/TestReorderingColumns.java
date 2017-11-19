@@ -31,6 +31,31 @@ public class TestReorderingColumns {
         setupFixture.dispose();
     }
 
+    private class TestData {
+        private String columnToDrag;
+        private String columnWhereToDrag;
+        private int rowNumber;
+
+        public TestData invoke() {
+            columnToDrag = spec.get("tableDemo.columnToDrag").String();
+            columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").String();
+            rowNumber = spec.get("tableDemo.reorderingRowNumber").Int();
+
+            return this;
+        }
+    }
+
+    private class TestDataCells {
+        private String cellToDrag;
+        private String cellWhereToDrop;
+
+        public TestDataCells invoke() {
+            cellToDrag = spec.get("tableDemo.cellToDrag").String();
+            cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").String();
+            return this;
+        }
+    }
+
     /**
      * Go to Table Demo
      * Make sure, that reordering is allowed
@@ -45,24 +70,22 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnToNewPosition() {
-        String columnToDrag = spec.get("tableDemo.columnToDrag").String();
-        String columnWhereToDrop = spec.get("tableDemo.columnWhereToDrag").String();
+        TestData testData = new TestData().invoke();
 
         demo.allowReordering();
 
-        int startIndex = demo.getColumnIndex(columnToDrag);
-        int endIndex = demo.getColumnIndex(columnWhereToDrop);
+        int startIndex = demo.getColumnIndex(testData.columnToDrag);
+        int endIndex = demo.getColumnIndex(testData.columnWhereToDrag);
 
-        int rowNumber = spec.get("tableDemo.reorderingRowNumber").Int();
 
-        String originalCellValue = demo.getStringFromTableCell(rowNumber, startIndex);
+        String originalCellValue = demo.getStringFromTableCell(testData.rowNumber, startIndex);
 
-        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
-        Point dropTo = demo.getColumnHeaderPoint(columnWhereToDrop);
+        Point dragFrom = demo.getColumnHeaderPoint(testData.columnToDrag);
+        Point dropTo = demo.getColumnHeaderPoint(testData.columnWhereToDrag);
 
         demo.drapAndDrop(dragFrom, dropTo);
 
-        String newCellValue = demo.getStringFromTableCell(rowNumber, endIndex);
+        String newCellValue = demo.getStringFromTableCell(testData.rowNumber, endIndex);
 
         Assert.assertEquals(originalCellValue, newCellValue);
     }
@@ -78,18 +101,18 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnUp() {
-        String columnToDrag = spec.get("tableDemo.columnToDrag").String();
+        TestData testData = new TestData().invoke();
 
         demo.allowReordering();
 
-        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
+        Point dragFrom = demo.getColumnHeaderPoint(testData.columnToDrag);
         Point dropTo = new Point(dragFrom.x, dragFrom.y - 100);
 
-        int startIndex = demo.getColumnIndex(columnToDrag);
+        int startIndex = demo.getColumnIndex(testData.columnToDrag);
 
         demo.drapAndDrop(dragFrom, dropTo);
 
-        int endIndex = demo.getColumnIndex(columnToDrag);
+        int endIndex = demo.getColumnIndex(testData.columnToDrag);
 
         Assert.assertEquals(startIndex, endIndex);
     }
@@ -105,20 +128,19 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnUpAndToTheSide() {
-        String columnToDrag = spec.get("tableDemo.columnWhereToDrag").String();
-        String columnWhereToDrop = spec.get("tableDemo.columnToDrag").String();
+        TestData testData = new TestData().invoke();
 
         demo.allowReordering();
 
-        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
-        Point dropTo = demo.getColumnHeaderPoint(columnWhereToDrop);
+        Point dragFrom = demo.getColumnHeaderPoint(testData.columnToDrag);
+        Point dropTo = demo.getColumnHeaderPoint(testData.columnWhereToDrag);
         dropTo.y -= 100;
 
-        int whereToDropIndex = demo.getColumnIndex(columnWhereToDrop);
+        int whereToDropIndex = demo.getColumnIndex(testData.columnWhereToDrag);
 
         demo.drapAndDrop(dragFrom, dropTo);
 
-        int currentIndex = demo.getColumnIndex(columnToDrag);
+        int currentIndex = demo.getColumnIndex(testData.columnToDrag);
 
         Assert.assertEquals(currentIndex, whereToDropIndex);
     }
@@ -134,17 +156,16 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestTryDragCellUpAndToTheSide() {
-        String cellToDrag = spec.get("tableDemo.cellToDrag").String();
-        String cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").String();
+        TestDataCells testDataCells = new TestDataCells().invoke();
 
         demo.allowReordering();
 
-        Point dragFrom = demo.getCellPoint(cellToDrag);
-        Point dropTo = demo.getCellPoint(cellWhereToDrop);
+        Point dragFrom = demo.getCellPoint(testDataCells.cellToDrag);
+        Point dropTo = demo.getCellPoint(testDataCells.cellWhereToDrop);
 
         demo.drapAndDrop(dragFrom, dropTo);
 
-        Point newPosition = demo.getCellPoint(cellToDrag);
+        Point newPosition = demo.getCellPoint(testDataCells.cellToDrag);
 
         Assert.assertEquals(dragFrom.x, newPosition.x);
         Assert.assertEquals(dragFrom.y, newPosition.y);
@@ -160,17 +181,16 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestReorderingDisabled(){
+        TestData testData = new TestData().invoke();
+
         demo.forbidReordering();
 
-        String columnToDrag = spec.get("tableDemo.columnToDrag").String();
-        String columnWhereToDrop = spec.get("tableDemo.columnWhereToDrag").String();
-
-        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
-        Point dropTo = demo.getColumnHeaderPoint(columnWhereToDrop);
+        Point dragFrom = demo.getColumnHeaderPoint(testData.columnToDrag);
+        Point dropTo = demo.getColumnHeaderPoint(testData.columnWhereToDrag);
 
         demo.drapAndDrop(dragFrom, dropTo);
 
-        Point actual = demo.getColumnHeaderPoint(columnToDrag);
+        Point actual = demo.getColumnHeaderPoint(testData.columnToDrag);
         Assert.assertEquals(dragFrom, actual);
     }
 
@@ -187,19 +207,18 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnToNewPositionAndBack() {
-        String columnToDrag = spec.get("tableDemo.columnToDrag").String();
-        String columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").String();
+        TestData testData = new TestData().invoke();
 
         demo.allowReordering();
 
-        int startIndex = demo.getColumnIndex(columnToDrag);
+        int startIndex = demo.getColumnIndex(testData.columnToDrag);
 
-        Point dragFrom = demo.getColumnHeaderPoint(columnToDrag);
-        Point dragTo = demo.getColumnHeaderPoint(columnWhereToDrag);
+        Point dragFrom = demo.getColumnHeaderPoint(testData.columnToDrag);
+        Point dragTo = demo.getColumnHeaderPoint(testData.columnWhereToDrag);
 
         demo.drapAndDrop(dragFrom, Arrays.asList(dragTo, dragFrom));
 
-        int endIndex = demo.getColumnIndex(columnToDrag);
+        int endIndex = demo.getColumnIndex(testData.columnToDrag);
 
         Assert.assertEquals(startIndex, endIndex);
     }
