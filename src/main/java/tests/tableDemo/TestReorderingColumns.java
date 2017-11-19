@@ -16,14 +16,14 @@ import java.util.Arrays;
 
 public class TestReorderingColumns {
 
-    private SetupFixture setupFixture = new AppletSetupFixture();
-    private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
+    private final SetupFixture setupFixture = new AppletSetupFixture();
+    private final PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
     private TableDemo demo;
 
     @Before
     public void Setup() {
-        demo = prepairDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepair(setupFixture.init());
     }
 
     @After
@@ -36,7 +36,7 @@ public class TestReorderingColumns {
         private String columnWhereToDrag;
         private int rowNumber;
 
-        public TestData invoke() {
+        TestData invoke() {
             columnToDrag = spec.get("tableDemo.columnToDrag").String();
             columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").String();
             rowNumber = spec.get("tableDemo.reorderingRowNumber").Int();
@@ -49,7 +49,7 @@ public class TestReorderingColumns {
         private String cellToDrag;
         private String cellWhereToDrop;
 
-        public TestDataCells invoke() {
+        TestDataCells invoke() {
             cellToDrag = spec.get("tableDemo.cellToDrag").String();
             cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").String();
             return this;
