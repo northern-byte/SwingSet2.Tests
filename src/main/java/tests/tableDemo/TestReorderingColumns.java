@@ -16,10 +16,10 @@ import java.util.Arrays;
 
 public class TestReorderingColumns {
 
-    SetupFixture setupFixture = new AppletSetupFixture();
-    PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
+    private SetupFixture setupFixture = new AppletSetupFixture();
+    private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
-    TableDemo demo;
+    private TableDemo demo;
 
     @Before
     public void Setup() {
