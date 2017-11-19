@@ -17,7 +17,9 @@ import utils.ResourceManager;
 
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -226,6 +228,11 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
+    public int getRowCount() {
+        return tableView.get().rowCount();
+    }
+
+    @Override
     public int getColumnWidth(int index){
         return tableView.get().target.getColumnModel().getColumn(index).getWidth();
     }
@@ -283,7 +290,14 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
-    public void clickCell(String cellText) {
+    public Point getCellPoint(int row, int column) {
+        TableCell cell = TableCell.row(row).column(column);
+        Rectangle rectangle = tableView.get().target.getCellRect(cell.row, cell.column, true);
+        return new Point(rectangle.x + rectangle.width / 2, rectangle.y + rectangle.height);
+    }
+
+    @Override
+    public void selectCell(String cellText) {
         TableCell cell = tableView.get().cell(cellText);
         tableView.get().click(cell, MouseButton.LEFT_BUTTON);
     }
@@ -297,5 +311,57 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     @Override
     public void selectResizeMode(String resizeModeName) {
         resizeModeComboBox.get().selectItem(resizeModeName);
+    }
+
+    @Override
+    public void selectCell(int row, int column) {
+        TableCell cell = TableCell.row(row).column(column);
+        tableView.get().click(cell, MouseButton.LEFT_BUTTON);
+    }
+
+    @Override
+    public void selectSelectionMode(String mode) {
+        selectionModeComboBox.get().selectItem(mode);
+    }
+
+    @Override
+    public int[] getSelectedRows() {
+        return tableView.get().target.getSelectedRows();
+    }
+
+    @Override
+    public int[] getSelectedColumns() {
+        return tableView.get().target.getSelectedColumns();
+    }
+
+    @Override
+    public void enableRowSelection() {
+        isRowSelectionAllowedCheckBox.get().check();
+    }
+
+    @Override
+    public void enableColumnSelection() {
+        isColumnSelectionAllowedCheckBox.get().check();
+    }
+
+    @Override
+    public void disableRowSelection() {
+        isRowSelectionAllowedCheckBox.get().uncheck();
+    }
+
+    @Override
+    public void disableColumnSelection() {
+        isColumnSelectionAllowedCheckBox.get().uncheck();
+    }
+
+    public Color getCellBackgroundColor(int row, int column) {
+        TableCellRenderer r = tableView.get().target.getCellRenderer(row, column);
+        Component component = tableView.get().target.prepareRenderer(r, row, column);
+        return component.getBackground();
+    }
+
+    @Override
+    public void selectRows(int... rows) {
+        tableView.get().selectRows(rows);
     }
 }

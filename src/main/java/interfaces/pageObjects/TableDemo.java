@@ -35,6 +35,8 @@ public interface TableDemo extends Demo {
 
     int getColumnCount();
 
+    int getRowCount();
+
     int getColumnWidth(int index);
 
     int getColumnWidth(String columnName);
@@ -55,9 +57,31 @@ public interface TableDemo extends Demo {
 
     Point getCellPoint(String cellText);
 
-    void clickCell(String cellText);
+    Point getCellPoint(int row, int column);
+
+    void selectCell(String cellText);
 
     void doubleClickCell(String cellText);
 
     void selectResizeMode(String resizeModeName);
+
+    void selectCell(int row, int column);
+
+    void selectSelectionMode(String mode);
+
+    int[] getSelectedRows();
+
+    int[] getSelectedColumns();
+
+    void enableRowSelection();
+
+    void enableColumnSelection();
+
+    void disableRowSelection();
+
+    void disableColumnSelection();
+
+    Color getCellBackgroundColor(int row, int column);
+
+    void selectRows(int... rows);
 }
