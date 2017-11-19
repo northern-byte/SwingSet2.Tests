@@ -19,7 +19,6 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -363,5 +362,40 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     @Override
     public void selectRows(int... rows) {
         tableView.get().selectRows(rows);
+    }
+
+    @Override
+    public void enableHorizontalLines() {
+        showHorizontalLinesCheckBox.get().check();
+    }
+
+    @Override
+    public void enableVerticalLines() {
+        showVerticalLinesCheckBox.get().check();
+    }
+
+    @Override
+    public void disableHorizontalLines() {
+        showHorizontalLinesCheckBox.get().uncheck();
+    }
+
+    @Override
+    public void disableVerticalLines() {
+        showVerticalLinesCheckBox.get().uncheck();
+    }
+
+    @Override
+    public boolean horizontalLinesEnabled() {
+        return tableView.get().target.getShowHorizontalLines();
+    }
+
+    @Override
+    public boolean verticalLinesEnabled() {
+        return tableView.get().target.getShowVerticalLines();
+    }
+
+    @Override
+    public Color getGridColor() {
+        return tableView.get().target.getGridColor();
     }
 }

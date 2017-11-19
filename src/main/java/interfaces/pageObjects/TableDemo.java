@@ -84,4 +84,18 @@ public interface TableDemo extends Demo {
     Color getCellBackgroundColor(int row, int column);
 
     void selectRows(int... rows);
+
+    void enableHorizontalLines();
+
+    void enableVerticalLines();
+
+    void disableHorizontalLines();
+
+    void disableVerticalLines();
+
+    boolean horizontalLinesEnabled();
+
+    boolean verticalLinesEnabled();
+
+    Color getGridColor();
 }
