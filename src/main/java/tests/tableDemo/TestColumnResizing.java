@@ -14,14 +14,14 @@ import utils.Specification;
 import java.awt.*;
 
 public class TestColumnResizing {
-    private SetupFixture setupFixture = new AppletSetupFixture();
-    private PrepareFixture<TableDemo> prepairDemo = new TableDemoPrepareFixture();
+    private final SetupFixture setupFixture = new AppletSetupFixture();
+    private final PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
     private TableDemo demo;
 
     @Before
     public void Setup() {
-        demo = prepairDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepair(setupFixture.init());
     }
 
     @After
@@ -39,7 +39,7 @@ public class TestColumnResizing {
         private String columnToResizeName;
         private String columnWhereToResizeName;
 
-        public TestData invoke() {
+        TestData invoke() {
             resizeModeOff = spec.get("tableDemo.resizeOff").String();
             resizeModeColumnBoundaries = spec.get("tableDemo.resizeColumnBoundaries").String();
             resizeModeSubsequentColumns = spec.get("tableDemo.resizeSubsequentColumns").String();
