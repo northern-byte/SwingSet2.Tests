@@ -24,15 +24,15 @@ public class Specification {
 
     public synchronized Prop get(String key) {
         Prop specProp = null;
-        for (String spec: specificationsLinkedList) {
+        for (String spec : specificationsLinkedList) {
             try {
                 specProp = ResourceManager.getSpecProp((String.format("%s.%s", spec, key)));
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
         }
 
-        if(specProp == null){
+        if (specProp == null) {
             throw new NoSuchPropertyException(String.format("Property %s was not found in specifications: %s ", key,
                     specificationsLinkedList.toString()));
         }
@@ -40,7 +40,7 @@ public class Specification {
         return specProp;
     }
 
-    public static Collection<String> getSpecifications(){
+    public static Collection<String> getSpecifications() {
         String specificationsString = ResourceManager.getConfigProp(SPECIFICATIONS_PROPERTY_NAME).String();
         return Arrays.asList(specificationsString.split(SEPARATOR));
     }
