@@ -17,6 +17,8 @@ import org.fest.swing.timing.Timeout;
 import utils.Platform;
 import utils.ResourceManager;
 
+import javax.swing.*;
+
 public class AppletSetupFixture implements SetupFixture {
 
     private AppletViewer applet;
@@ -25,6 +27,7 @@ public class AppletSetupFixture implements SetupFixture {
 
     @Override
     public View init() {
+        resetLookAndFeel();
         applet = GuiActionRunner.execute(new GuiQuery<AppletViewer>() {
             @Override
             protected AppletViewer executeInEDT() throws Throwable {
@@ -37,6 +40,20 @@ public class AppletSetupFixture implements SetupFixture {
         ResourceManager.loadConfigProperties();
         ResourceManager.loadSpecificationProperties();
         return new DefaultView(factory);
+    }
+
+    private void resetLookAndFeel() {
+        try {
+            String defaultLook;
+            if(Platform.getConfigProp("systemLook").Boolean()){
+                defaultLook = UIManager.getSystemLookAndFeelClassName();
+            } else {
+                defaultLook = UIManager.getCrossPlatformLookAndFeelClassName();
+            }
+            UIManager.setLookAndFeel(defaultLook);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
