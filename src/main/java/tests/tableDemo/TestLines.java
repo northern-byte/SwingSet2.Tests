@@ -59,6 +59,7 @@ public class TestLines {
      */
     @Test
     public void TestHorizontalLines(){
+        demo.disableHorizontalLines();
         demo.enableHorizontalLines();
         demo.disableVerticalLines();
         boolean horizLinesEnabled = demo.horizontalLinesEnabled();
@@ -79,6 +80,7 @@ public class TestLines {
      */
     @Test
     public void TestVerticalLines(){
+        demo.disableVerticalLines();
         demo.enableVerticalLines();
         demo.disableHorizontalLines();
         boolean vertLinesEnabled = demo.verticalLinesEnabled();
@@ -99,6 +101,8 @@ public class TestLines {
      */
     @Test
     public void TestHorizontalAndVerticalLines(){
+        demo.disableHorizontalLines();
+        demo.disableVerticalLines();
         demo.enableHorizontalLines();
         demo.enableVerticalLines();
         boolean horizLinesEnabled = demo.horizontalLinesEnabled();
