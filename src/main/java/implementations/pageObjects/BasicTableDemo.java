@@ -12,7 +12,11 @@ import org.fest.swing.core.MouseButton;
 import org.fest.swing.core.MouseClickInfo;
 import org.fest.swing.data.TableCell;
 import org.fest.swing.fixture.*;
+import org.fest.swing.timing.Condition;
+import org.fest.swing.timing.Pause;
+import org.fest.swing.timing.Timeout;
 import org.junit.Assert;
+import utils.Platform;
 import utils.ResourceManager;
 
 import javax.swing.*;
@@ -409,5 +413,29 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     @Override
     public Object getValueFromCell(int row, int column){
         return tableView.get().target.getValueAt(row, column);
+    }
+
+    @Override
+    public void maximizeWindow() {
+        frame.maximize();
+        Pause.pause(new Condition("Wait until maximized") {
+            @Override
+            public boolean test() {
+                return frame.target.getSize().width
+                        == Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+            }
+        }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
+    }
+
+    @Override
+    public void resizeWindowTo(Dimension size) {
+        frame.resizeTo(size);
+        Pause.pause(new Condition("Wait until resized") {
+            @Override
+            public boolean test() {
+                return frame.target.getSize().width
+                        == size.width;
+            }
+        }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
     }
 }

@@ -102,4 +102,8 @@ public interface TableDemo extends Demo {
     void clickColumnHeader(String columnName);
 
     Object getValueFromCell(int row, int column);
+
+    void maximizeWindow();
+
+    void resizeWindowTo(Dimension size);
 }
