@@ -39,6 +39,9 @@ public class TestColumnResizing {
         private String columnToResizeName;
         private String columnWhereToResizeName;
 
+        private int resizeToHeight;
+        private int resizeToWidth;
+
         TestData invoke() {
             resizeModeOff = spec.get("tableDemo.resizeOff").String();
             resizeModeColumnBoundaries = spec.get("tableDemo.resizeColumnBoundaries").String();
@@ -48,6 +51,9 @@ public class TestColumnResizing {
 
             columnToResizeName = spec.get("tableDemo.columnToResize").String();
             columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
+
+            resizeToHeight = spec.get("tableDemo.resizeToHeight").Int();
+            resizeToWidth = spec.get("tableDemo.resizeToWidth").Int();
             return this;
         }
     }
@@ -233,6 +239,36 @@ public class TestColumnResizing {
             } else {
                 Assert.assertTrue(newWidths[i] < originalWidths[i]);
             }
+        }
+    }
+
+    @Test
+    public void TestMaximizeWithOffMode(){
+        TestData testData = new TestData().invoke();
+        demo.selectResizeMode(testData.resizeModeOff);
+        int[] originalWidths = getColumnWidths();
+
+        demo.maximizeWindow();
+        int[] newWidths = getColumnWidths();
+
+        Assert.assertArrayEquals(originalWidths, newWidths);;
+    }
+
+    @Test
+    public void TestMaximizeAndNormalizeWithAllColumnsMode(){
+        TestData testData = new TestData().invoke();
+        demo.selectResizeMode(testData.resizeModeAllColumns);
+        int[] originalWidths = getColumnWidths();
+
+        demo.maximizeWindow();
+        int[] maximizedWidths = getColumnWidths();
+
+        demo.resizeWindowTo(new Dimension(testData.resizeToWidth, testData.resizeToHeight));
+        int[] resizeddWidths = getColumnWidths();
+
+        for(int i = 0; i < originalWidths.length; i++){
+            Assert.assertTrue(originalWidths[i] < resizeddWidths[i]
+                    && resizeddWidths[i] < maximizedWidths[i]);
         }
     }
 
