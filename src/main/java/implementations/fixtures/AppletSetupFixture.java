@@ -48,7 +48,7 @@ public class AppletSetupFixture implements SetupFixture {
             Pause.pause(new Condition("Check if applet is active") {
                 @Override
                 public boolean test() {
-                    return applet.isActive();
+                    return !applet.appletLoaded();
                 }
             }, Timeout.timeout(Platform.getConfigProp("disposeTimeout").Int()));
         }catch (NullPointerException e){
