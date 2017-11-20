@@ -14,6 +14,7 @@ import org.fest.swing.launcher.AppletLauncher;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.fest.swing.timing.Timeout;
+import utils.Platform;
 import utils.ResourceManager;
 
 public class AppletSetupFixture implements SetupFixture {
@@ -27,11 +28,11 @@ public class AppletSetupFixture implements SetupFixture {
         applet = GuiActionRunner.execute(new GuiQuery<AppletViewer>() {
             @Override
             protected AppletViewer executeInEDT() throws Throwable {
-                return AppletLauncher.applet(ResourceManager.getConfigProp("sutStartClass").String()).start();
+                return AppletLauncher.applet(Platform.getConfigProp("sutStartClass").String()).start();
             }
         });
         frame = new FrameFixture(applet);
-        frame.robot.settings().delayBetweenEvents(ResourceManager.getConfigProp("delayBetweenEvents").Int());
+        frame.robot.settings().delayBetweenEvents(Platform.getConfigProp("delayBetweenEvents").Int());
         factory = new BasicViewFactory(frame);
         ResourceManager.loadConfigProperties();
         ResourceManager.loadSpecificationProperties();
@@ -49,7 +50,7 @@ public class AppletSetupFixture implements SetupFixture {
                 public boolean test() {
                     return applet.isActive();
                 }
-            }, Timeout.timeout(ResourceManager.getConfigProp("disposeTimeout").Int()));
+            }, Timeout.timeout(Platform.getConfigProp("disposeTimeout").Int()));
         }catch (NullPointerException e){
             throw new FixtureNotInitializedException("You need to call init() first to create applet and frame");
         }

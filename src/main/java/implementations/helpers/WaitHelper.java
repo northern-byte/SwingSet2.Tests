@@ -6,7 +6,7 @@ import org.fest.swing.fixture.ComponentFixture;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.fest.swing.timing.Timeout;
-import utils.ResourceManager;
+import utils.Platform;
 
 import java.util.function.Supplier;
 
@@ -27,7 +27,7 @@ public class WaitHelper {
                 }
                 return false;
             }
-        }, Timeout.timeout(ResourceManager.getConfigProp("timeout").Int()));
+        }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
         return supplier.get();
     }
 }
