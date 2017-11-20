@@ -36,7 +36,7 @@ public class ResourceManager {
             throw e;
         }
     }
-    public static synchronized Prop getConfigProp(String key){
+    static synchronized Prop getConfigProp(String key){
         loadConfigProperties();
         String value = configProperties.getProperty(key);
         if (value == null) {
@@ -45,7 +45,7 @@ public class ResourceManager {
         return new Prop(value);
     }
 
-    public static synchronized Prop getSpecProp(String key){
+    static synchronized Prop getSpecProp(String key){
         loadSpecificationProperties();
         String value = specificationProperties.getProperty(key);
         if (value == null) {
