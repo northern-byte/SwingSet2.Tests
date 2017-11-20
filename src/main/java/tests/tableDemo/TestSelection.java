@@ -1,8 +1,8 @@
 package tests.tableDemo;
 
 import implementations.fixtures.AppletSetupFixture;
-import implementations.fixtures.TableDemoPrepareFixture;
-import interfaces.fixtures.PrepareFixture;
+import implementations.fixtures.TableDemoPrepareLookFixture;
+import interfaces.fixtures.PrepareLookFixture;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
 import org.junit.After;
@@ -12,17 +12,19 @@ import org.junit.Test;
 import utils.Specification;
 
 import java.awt.*;
+import java.util.function.Consumer;
 
 public class TestSelection {
     private final SetupFixture setupFixture = new AppletSetupFixture();
-    private PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
-    private final Specification spec = new Specification("mac");
+    private final PrepareLookFixture<TableDemo> prepareDemo = new TableDemoPrepareLookFixture();
+    private final Specification spec = new Specification("java");
     private TableDemo demo;
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepair(setupFixture.init(), spec.get("menu.lookAndFeel").String());
     }
+
 
     @After
     public void Close() {
@@ -76,20 +78,13 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeSingle);
         rowSelectionDrag(testData);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        int columnToSkip = demo.getColumnIndex(testData.columnToSkip);
-
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if (i != testData.rowToEndSelect || j == columnToSkip) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
-            }
+        checkCells(testData, cellInfo -> {
+        if (cellInfo.row != testData.rowToEndSelect) {
+            Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+        } else {
+            Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
         }
+        });
     }
 
     /**
@@ -107,18 +102,13 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeSingle);
         columnSelectionDrag(testData);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if (j != testData.columnToEndSelect) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if (cellInfo.column != testData.columnToEndSelect) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     /**
@@ -136,18 +126,13 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeSingle);
         rowAndColumnSelectionDrag(testData);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if (j != testData.columnToEndSelect || i != testData.rowToEndSelect) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if (cellInfo.column != testData.columnToEndSelect || cellInfo.row != testData.rowToEndSelect) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     /**
@@ -164,20 +149,13 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeOneRange);
         rowSelectionDrag(testData);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        int columnToSkip = demo.getColumnIndex(testData.columnToSkip);
-
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if ((i != testData.rowToStartSelect && i != testData.rowToEndSelect) || j == columnToSkip) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if ((cellInfo.row != testData.rowToStartSelect && cellInfo.row != testData.rowToEndSelect)) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     /**
@@ -194,18 +172,13 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeOneRange);
         columnSelectionDrag(testData);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if (j != testData.columnToStartSelect && j != testData.columnToEndSelect) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if (cellInfo.column != testData.columnToStartSelect && cellInfo.column != testData.columnToEndSelect) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     /**
@@ -222,19 +195,14 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeOneRange);
         rowAndColumnSelectionDrag(testData);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if ((j != testData.columnToStartSelect && j != testData.columnToEndSelect)
-                        || (i != testData.rowToStartSelect && i != testData.rowToEndSelect)) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if ((cellInfo.column != testData.columnToStartSelect && cellInfo.column != testData.columnToEndSelect)
+                    || (cellInfo.row != testData.rowToStartSelect && cellInfo.row != testData.rowToEndSelect)) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     /**
@@ -253,19 +221,14 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeMultipleRanges);
         demo.selectRows(testData.rowToSelectFirst, testData.rowToSelectSecond);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if ((i != testData.rowToSelectFirst && i != testData.rowToSelectSecond) || j != 0) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if ((cellInfo.row != testData.rowToSelectFirst && cellInfo.row != testData.rowToSelectSecond)
+                    || cellInfo.column != 0) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     /**
@@ -282,20 +245,13 @@ public class TestSelection {
         demo.enableRowSelection();
         demo.selectRows(testData.rowToSelectFirst, testData.rowToSelectSecond);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        int columnToSkip = demo.getColumnIndex(testData.columnToSkip);
-
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if (i != testData.rowToSelectSecond || j == columnToSkip) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if (cellInfo.row != testData.rowToSelectSecond) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     /**
@@ -312,20 +268,13 @@ public class TestSelection {
         demo.selectSelectionMode(testData.selectionModeMultipleRanges);
         demo.selectRows(testData.rowToSelectFirst, testData.rowToSelectSecond);
 
-        int rowCount = demo.getRowCount();
-        int columnCount = demo.getColumnCount();
-        int columnToSkip = demo.getColumnIndex(testData.columnToSkip);
-
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                Color actualColor = demo.getCellBackgroundColor(i, j);
-                if ((i != testData.rowToSelectFirst && i != testData.rowToSelectSecond) || j == columnToSkip) {
-                    Assert.assertNotEquals(testData.selectionColor, actualColor);
-                } else {
-                    Assert.assertEquals(testData.selectionColor, actualColor);
-                }
+        checkCells(testData, cellInfo -> {
+            if ((cellInfo.row != testData.rowToSelectFirst && cellInfo.row != testData.rowToSelectSecond)) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
             }
-        }
+        });
     }
 
     private void rowSelectionDrag(TestData testData) {
@@ -350,5 +299,34 @@ public class TestSelection {
 
         demo.drapAndDrop(demo.getCellPoint(testData.rowToStartSelect, testData.columnToStartSelect),
                 demo.getCellPoint(testData.rowToEndSelect, testData.columnToEndSelect));
+    }
+
+    private void checkCells(TestData testData, Consumer<CellInfo> condition){
+        int rowCount = demo.getRowCount();
+        int columnCount = demo.getColumnCount();
+        int columnToSkip = demo.getColumnIndex(testData.columnToSkip);
+
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < columnCount; j++) {
+                if(j == columnToSkip){
+                    continue;
+                }
+                Color actualColor = demo.getCellBackgroundColor(i, j);
+                CellInfo cellInfo = new CellInfo(i, j, actualColor);
+                condition.accept(cellInfo);
+            }
+        }
+    }
+
+    private class CellInfo {
+        private final int row;
+        private final int column;
+        private final Color actualColor;
+
+        public CellInfo(int row, int column, Color actualColor) {
+            this.row = row;
+            this.column = column;
+            this.actualColor = actualColor;
+        }
     }
 }
