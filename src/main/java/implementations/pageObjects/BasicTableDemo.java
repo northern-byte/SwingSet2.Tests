@@ -398,4 +398,16 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     public Color getGridColor() {
         return tableView.get().target.getGridColor();
     }
+
+    @Override
+    public void clickColumnHeader(String columnName) {
+        JTableHeader header = tableView.get().tableHeader().target;
+        Point columnPoint = headerHelper.pointAtName(header, textMatcherHelper.exactText(columnName));
+        frame.robot.click(header, columnPoint);
+    }
+
+    @Override
+    public Object getValueFromCell(int row, int column){
+        return tableView.get().target.getValueAt(row, column);
+    }
 }

@@ -98,4 +98,8 @@ public interface TableDemo extends Demo {
     boolean verticalLinesEnabled();
 
     Color getGridColor();
+
+    void clickColumnHeader(String columnName);
+
+    Object getValueFromCell(int row, int column);
 }
