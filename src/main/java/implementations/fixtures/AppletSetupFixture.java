@@ -1,11 +1,13 @@
 package implementations.fixtures;
 
 import exceptions.FixtureNotInitializedException;
-import implementations.factories.BasicViewFactory;
+import exceptions.NoSuchConfigurationException;
 import implementations.pageObjects.DefaultView;
 import interfaces.factories.ViewFactory;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.View;
+import org.fest.reflect.core.Reflection;
+import org.fest.reflect.exception.ReflectionError;
 import org.fest.swing.applet.AppletViewer;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
@@ -23,7 +25,6 @@ public class AppletSetupFixture implements SetupFixture {
 
     private AppletViewer applet;
     private FrameFixture frame;
-    private ViewFactory factory;
 
     @Override
     public View init() {
@@ -36,10 +37,27 @@ public class AppletSetupFixture implements SetupFixture {
         });
         frame = new FrameFixture(applet);
         frame.robot.settings().delayBetweenEvents(Platform.getConfigProp("delayBetweenEvents").Int());
-        factory = new BasicViewFactory(frame);
+
+        ViewFactory factory = getFactory();
+
         ResourceManager.loadConfigProperties();
         ResourceManager.loadSpecificationProperties();
         return new DefaultView(factory);
+    }
+
+    private ViewFactory getFactory() {
+        ViewFactory factory;
+        String configurationName = Platform.getConfigProp("configuration").String();
+
+        Class<? extends ViewFactory> factoryClass;
+        try {
+            factoryClass = Reflection.type(String.format("implementations.factories.%sViewFactory", configurationName)).loadAs(ViewFactory.class);
+        } catch (ReflectionError e) {
+            throw new NoSuchConfigurationException(String.format("There is no configuration %s", configurationName));
+        }
+
+        factory = Reflection.constructor().withParameterTypes(FrameFixture.class).in(factoryClass).newInstance(frame);
+        return factory;
     }
 
     private void resetLookAndFeel() {
