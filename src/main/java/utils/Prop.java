@@ -41,4 +41,8 @@ public class Prop {
     public TestImage TestImage() {
         return new TestImage(value);
     }
+
+    public boolean Boolean(){
+        return Boolean.parseBoolean(value);
+    }
 }
