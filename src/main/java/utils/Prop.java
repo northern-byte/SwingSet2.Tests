@@ -1,9 +1,11 @@
 package utils;
 
+import implementations.wrappers.TestImage;
+
 import java.awt.*;
 import java.util.Arrays;
 
-public class Prop{
+public class Prop {
     private String colorSeparator = ":";
     private String value;
 
@@ -11,11 +13,11 @@ public class Prop{
         this.value = value;
     }
 
-    public String String(){
+    public String String() {
         return value;
     }
 
-    public int Int(){
+    public int Int() {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
@@ -23,7 +25,7 @@ public class Prop{
         }
     }
 
-    public double Double(){
+    public double Double() {
         try {
             return Double.parseDouble(value);
         } catch (NumberFormatException e) {
@@ -31,8 +33,12 @@ public class Prop{
         }
     }
 
-    public Color Color(){
+    public Color Color() {
         Integer[] rgb = Arrays.stream(value.split(colorSeparator)).map(Integer::parseInt).toArray(Integer[]::new);
         return new Color(rgb[0], rgb[1], rgb[2]);
+    }
+
+    public TestImage TestImage() {
+        return new TestImage(value);
     }
 }
