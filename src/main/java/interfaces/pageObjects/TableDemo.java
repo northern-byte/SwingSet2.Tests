@@ -106,4 +106,6 @@ public interface TableDemo extends Demo {
     void maximizeWindow();
 
     void resizeWindowTo(Dimension size);
+
+    String inputValueToCell(int row, int column, String value);
 }

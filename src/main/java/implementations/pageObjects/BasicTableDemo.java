@@ -438,4 +438,10 @@ public class BasicTableDemo extends PageObject implements TableDemo {
             }
         }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
     }
+
+    @Override
+    public String inputValueToCell(int row, int column, String value) {
+        tableView.get().enterValue(TableCell.row(row).column(column), value);
+        return String.valueOf(getValueFromCell(row, column));
+    }
 }
