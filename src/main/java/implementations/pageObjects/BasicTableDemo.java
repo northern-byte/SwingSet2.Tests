@@ -425,6 +425,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
                         >= Toolkit.getDefaultToolkit().getScreenSize().getWidth();
             }
         }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
+        frame.robot.waitForIdle();
     }
 
     @Override
@@ -437,6 +438,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
                         == size.width;
             }
         }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
+        frame.robot.waitForIdle();
     }
 
     @Override
