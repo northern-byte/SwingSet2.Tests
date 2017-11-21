@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class LookAndFeel {
+public class TestLookAndFeel {
     private final SetupFixture setupFixture = new AppletSetupFixture();
     private final PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
     private View view;
