@@ -147,6 +147,8 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         Assert.assertEquals(bh, eh);
         Assert.assertEquals(bw, ew);
         Assert.assertTrue(imageHelper.imagesAreEqual(bimage, expected));
+
+        table.target.getShowVerticalLines();
     }
 
     @Override
@@ -453,12 +455,12 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
-    public boolean areHorizontalLinesEnabled() {
+    public boolean isHorizontalLinesControlEnabled() {
         return showHorizontalLinesCheckBox.get().target.isSelected();
     }
 
     @Override
-    public boolean areVerticalLinesEnabled() {
+    public boolean isVerticalLinesControlEnabled() {
         return showVerticalLinesCheckBox.get().target.isSelected();
     }
 

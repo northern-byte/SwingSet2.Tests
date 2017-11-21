@@ -111,9 +111,9 @@ public interface TableDemo extends Demo {
 
     boolean isReorderingAllowed();
 
-    boolean areHorizontalLinesEnabled();
+    boolean isHorizontalLinesControlEnabled();
 
-    boolean areVerticalLinesEnabled();
+    boolean isVerticalLinesControlEnabled();
 
     boolean isRowSelectionEnabled();
 

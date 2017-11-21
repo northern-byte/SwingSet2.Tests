@@ -45,8 +45,8 @@ public class TestInitialState {
     public void TestInitialState(){
         TestData testData = new TestData();
         boolean reordering = demo.isReorderingAllowed();
-        boolean horizLines = demo.areHorizontalLinesEnabled();
-        boolean vertLines = demo.areVerticalLinesEnabled();
+        boolean horizLines = demo.isHorizontalLinesControlEnabled();
+        boolean vertLines = demo.isVerticalLinesControlEnabled();
         boolean rowSelection = demo.isRowSelectionEnabled();
         boolean columnSelection = demo.isColumnSelectionEnabled();
         int intercellSpacing = demo.getIntercellSpacingValue();
