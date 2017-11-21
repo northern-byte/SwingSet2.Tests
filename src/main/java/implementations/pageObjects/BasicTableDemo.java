@@ -424,7 +424,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
                 return frame.target.getSize().width
                         >= Toolkit.getDefaultToolkit().getScreenSize().getWidth();
             }
-        }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
+        }, Timeout.timeout(Platform.getConfigProp("elementTimeout").Int()));
         frame.robot.waitForIdle();
     }
 
@@ -437,7 +437,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
                 return frame.target.getSize().width
                         == size.width;
             }
-        }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
+        }, Timeout.timeout(Platform.getConfigProp("elementTimeout").Int()));
         frame.robot.waitForIdle();
     }
 
