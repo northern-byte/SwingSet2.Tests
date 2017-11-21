@@ -422,7 +422,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
             @Override
             public boolean test() {
                 return frame.target.getSize().width
-                        == Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+                        >= Toolkit.getDefaultToolkit().getScreenSize().getWidth();
             }
         }, Timeout.timeout(Platform.getConfigProp("timeout").Int()));
     }
