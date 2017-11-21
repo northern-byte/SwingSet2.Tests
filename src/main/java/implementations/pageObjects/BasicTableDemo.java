@@ -446,4 +446,44 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         tableView.get().enterValue(TableCell.row(row).column(column), value);
         return String.valueOf(getValueFromCell(row, column));
     }
+
+    @Override
+    public boolean isReorderingAllowed() {
+        return isColumnReorderingAllowedCheckBox.get().target.isSelected();
+    }
+
+    @Override
+    public boolean areHorizontalLinesEnabled() {
+        return showHorizontalLinesCheckBox.get().target.isSelected();
+    }
+
+    @Override
+    public boolean areVerticalLinesEnabled() {
+        return showVerticalLinesCheckBox.get().target.isSelected();
+    }
+
+    @Override
+    public boolean isRowSelectionEnabled() {
+        return isRowSelectionAllowedCheckBox.get().target.isSelected();
+    }
+
+    @Override
+    public boolean isColumnSelectionEnabled() {
+        return isColumnSelectionAllowedCheckBox.get().target.isSelected();
+    }
+
+    @Override
+    public int getRowHeightValue() {
+        return rowHeightSlider.get().target.getValue();
+    }
+
+    @Override
+    public String getSelectionMode() {
+        return (String) selectionModeComboBox.get().target.getSelectedItem();
+    }
+
+    @Override
+    public String getAutoresizeMode() {
+        return (String) resizeModeComboBox.get().target.getSelectedItem();
+    }
 }

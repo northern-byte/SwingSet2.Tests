@@ -108,4 +108,20 @@ public interface TableDemo extends Demo {
     void resizeWindowTo(Dimension size);
 
     String inputValueToCell(int row, int column, String value);
+
+    boolean isReorderingAllowed();
+
+    boolean areHorizontalLinesEnabled();
+
+    boolean areVerticalLinesEnabled();
+
+    boolean isRowSelectionEnabled();
+
+    boolean isColumnSelectionEnabled();
+
+    int getRowHeightValue();
+
+    String getSelectionMode();
+
+    String getAutoresizeMode();
 }
