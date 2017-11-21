@@ -39,9 +39,6 @@ public class TestColumnResizing {
         private String columnToResizeName;
         private String columnWhereToResizeName;
 
-        private int resizeToHeight;
-        private int resizeToWidth;
-
         TestData invoke() {
             resizeModeOff = spec.get("tableDemo.resizeOff").String();
             resizeModeColumnBoundaries = spec.get("tableDemo.resizeColumnBoundaries").String();
@@ -51,9 +48,6 @@ public class TestColumnResizing {
 
             columnToResizeName = spec.get("tableDemo.columnToResize").String();
             columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
-
-            resizeToHeight = spec.get("tableDemo.resizeToHeight").Int();
-            resizeToWidth = spec.get("tableDemo.resizeToWidth").Int();
             return this;
         }
     }
@@ -242,6 +236,12 @@ public class TestColumnResizing {
         }
     }
 
+    /**
+     * Go to Table Demo
+     * Select resizing mode Off
+     * Maximize window
+     * Check that columns remain the same
+     */
     @Test
     public void TestMaximizeWithOffMode(){
         TestData testData = new TestData().invoke();
@@ -254,8 +254,14 @@ public class TestColumnResizing {
         Assert.assertArrayEquals(originalWidths, newWidths);;
     }
 
+    /**
+     * Go to Table Demo
+     * Select resizing mode Off
+     * Maximize window
+     * Check that columns are now wider
+     */
     @Test
-    public void TestMaximizeAndNormalizeWithAllColumnsMode(){
+    public void TestMaximizeWithAllColumnsMode(){
         TestData testData = new TestData().invoke();
         demo.selectResizeMode(testData.resizeModeAllColumns);
         int[] originalWidths = getColumnWidths();
@@ -263,12 +269,8 @@ public class TestColumnResizing {
         demo.maximizeWindow();
         int[] maximizedWidths = getColumnWidths();
 
-        demo.resizeWindowTo(new Dimension(testData.resizeToWidth, testData.resizeToHeight));
-        int[] resizeddWidths = getColumnWidths();
-
         for(int i = 0; i < originalWidths.length; i++){
-            Assert.assertTrue(originalWidths[i] < resizeddWidths[i]
-                    && resizeddWidths[i] < maximizedWidths[i]);
+            Assert.assertTrue(originalWidths[i] < maximizedWidths[i]);
         }
     }
 
