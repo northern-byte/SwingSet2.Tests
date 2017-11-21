@@ -5,12 +5,11 @@ import implementations.fixtures.TableDemoPrepareLookFixture;
 import interfaces.fixtures.PrepareLookFixture;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.Timeout;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import utils.Platform;
 import utils.Specification;
 
 import java.awt.*;
@@ -22,6 +21,9 @@ public class TestLines {
     private final PrepareLookFixture<TableDemo> prepareDemo = new TableDemoPrepareLookFixture();
     private final Specification spec;
     private TableDemo demo;
+
+    @Rule
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
 
     @Before
     public void Setup() {

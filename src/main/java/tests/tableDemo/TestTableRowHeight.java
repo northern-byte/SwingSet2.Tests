@@ -5,10 +5,9 @@ import implementations.fixtures.TableDemoPrepareFixture;
 import interfaces.fixtures.PrepareFixture;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.Timeout;
+import utils.Platform;
 import utils.Specification;
 
 public class TestTableRowHeight {
@@ -16,6 +15,9 @@ public class TestTableRowHeight {
     private PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
     private final Specification spec = new Specification();
     private TableDemo demo;
+
+    @Rule
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
 
     @Before
     public void Setup() {
