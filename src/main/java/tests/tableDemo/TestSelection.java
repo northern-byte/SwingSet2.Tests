@@ -34,35 +34,18 @@ public class TestSelection {
     }
 
     private class TestData {
-        private String selectionModeSingle;
-        private String selectionModeOneRange;
-        private String selectionModeMultipleRanges;
+        final String selectionModeSingle = spec.get("tableDemo.selectionModeSingle").String();
+        final String selectionModeOneRange = spec.get("tableDemo.selectionModeOneRange").String();
+        final String selectionModeMultipleRanges = spec.get("tableDemo.selectionModeMultipleRanges").String();
 
-        private int rowToStartSelect;
-        private int columnToStartSelect;
-        private int rowToEndSelect;
-        private int columnToEndSelect;
-        private String columnToSkip;
-        private Color selectionColor;
-        private int rowToSelectFirst;
-        private int rowToSelectSecond;
-
-        TestData invoke() {
-            selectionModeSingle = spec.get("tableDemo.selectionModeSingle").String();
-            selectionModeOneRange = spec.get("tableDemo.selectionModeOneRange").String();
-            selectionModeMultipleRanges = spec.get("tableDemo.selectionModeMultipleRanges").String();
-
-            rowToStartSelect = spec.get("tableDemo.rowToStartSelect").Int();
-            columnToStartSelect = spec.get("tableDemo.columnToStartSelect").Int();
-            rowToEndSelect = spec.get("tableDemo.rowToEndSelect").Int();
-            columnToEndSelect = spec.get("tableDemo.columnToEndSelect").Int();
-            columnToSkip = spec.get("tableDemo.columnToSkip").String();
-            selectionColor = spec.get("tableDemo.selectionColor").Color();
-            rowToSelectFirst = spec.get("tableDemo.rowToSelectFirst").Int();
-            rowToSelectSecond = spec.get("tableDemo.rowToSelectSecond").Int();
-
-            return this;
-        }
+        final int rowToStartSelect = spec.get("tableDemo.rowToStartSelect").Int();
+        final int columnToStartSelect = spec.get("tableDemo.columnToStartSelect").Int();
+        final int rowToEndSelect = spec.get("tableDemo.rowToEndSelect").Int();
+        final int columnToEndSelect = spec.get("tableDemo.columnToEndSelect").Int();
+        final String columnToSkip = spec.get("tableDemo.columnToSkip").String();
+        final Color selectionColor = spec.get("tableDemo.selectionColor").Color();
+        final int rowToSelectFirst = spec.get("tableDemo.rowToSelectFirst").Int();
+        final int rowToSelectSecond = spec.get("tableDemo.rowToSelectSecond").Int();
     }
 
     /**
@@ -76,16 +59,16 @@ public class TestSelection {
      */
     @Test
     public void TestRowSelectionModeSingle() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.selectSelectionMode(testData.selectionModeSingle);
         rowSelectionDrag(testData);
 
         checkCells(testData, cellInfo -> {
-        if (cellInfo.row != testData.rowToEndSelect) {
-            Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
-        } else {
-            Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
-        }
+            if (cellInfo.row != testData.rowToEndSelect) {
+                Assert.assertNotEquals(testData.selectionColor, cellInfo.actualColor);
+            } else {
+                Assert.assertEquals(testData.selectionColor, cellInfo.actualColor);
+            }
         });
     }
 
@@ -100,7 +83,7 @@ public class TestSelection {
      */
     @Test
     public void TestColumnSelectionModeSingle() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.selectSelectionMode(testData.selectionModeSingle);
         columnSelectionDrag(testData);
 
@@ -124,7 +107,7 @@ public class TestSelection {
      */
     @Test
     public void TestRowAndColumnSelectionModeSingle() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.selectSelectionMode(testData.selectionModeSingle);
         rowAndColumnSelectionDrag(testData);
 
@@ -147,7 +130,7 @@ public class TestSelection {
      */
     @Test
     public void TestRowSelectionModeOneRange() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.selectSelectionMode(testData.selectionModeOneRange);
         rowSelectionDrag(testData);
 
@@ -170,7 +153,7 @@ public class TestSelection {
      */
     @Test
     public void TestColumnSelectionModeOneRange() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.selectSelectionMode(testData.selectionModeOneRange);
         columnSelectionDrag(testData);
 
@@ -193,7 +176,7 @@ public class TestSelection {
      */
     @Test
     public void TestRowAndColumnSelectionModeOneRange() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.selectSelectionMode(testData.selectionModeOneRange);
         rowAndColumnSelectionDrag(testData);
 
@@ -217,7 +200,7 @@ public class TestSelection {
      */
     @Test
     public void TestRowAndColumnSelectionModeMultipleRanges() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.enableRowSelection();
         demo.enableColumnSelection();
         demo.selectSelectionMode(testData.selectionModeMultipleRanges);
@@ -242,7 +225,7 @@ public class TestSelection {
      */
     @Test
     public void TestOneRangeSelection() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.selectSelectionMode(testData.selectionModeOneRange);
         demo.enableRowSelection();
         demo.selectRows(testData.rowToSelectFirst, testData.rowToSelectSecond);
@@ -265,7 +248,7 @@ public class TestSelection {
      */
     @Test
     public void TestMultipleRangesSelection() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
         demo.enableRowSelection();
         demo.selectSelectionMode(testData.selectionModeMultipleRanges);
         demo.selectRows(testData.rowToSelectFirst, testData.rowToSelectSecond);
@@ -303,14 +286,14 @@ public class TestSelection {
                 demo.getCellPoint(testData.rowToEndSelect, testData.columnToEndSelect));
     }
 
-    private void checkCells(TestData testData, Consumer<CellInfo> condition){
+    private void checkCells(TestData testData, Consumer<CellInfo> condition) {
         int rowCount = demo.getRowCount();
         int columnCount = demo.getColumnCount();
         int columnToSkip = demo.getColumnIndex(testData.columnToSkip);
 
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < columnCount; j++) {
-                if(j == columnToSkip){
+                if (j == columnToSkip) {
                     continue;
                 }
                 Logger.info(String.format("Cell at (%d, %d)", i, j));

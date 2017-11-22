@@ -32,24 +32,13 @@ public class TestCellInput {
     }
 
     private class TestData {
-        private String doubleColumn;
-        private String doubleInput;
-        private String doubleExpected;
+        final String doubleColumn = spec.get("tableDemo.numberColumn").String();
+        final String doubleInput = spec.get("tableDemo.inputDouble").String();
+        final String doubleExpected = spec.get("tableDemo.inputDoubleExpected").String();
 
-        private int colorColumn;
-        private String colorToChoose;
-        private Color colorExpected;
-
-        private TestData invoke() {
-            doubleColumn = spec.get("tableDemo.numberColumn").String();
-            doubleInput = spec.get("tableDemo.inputDouble").String();
-            doubleExpected = spec.get("tableDemo.inputDoubleExpected").String();
-
-            colorColumn = demo.getColumnIndex(spec.get("tableDemo.colorColumn").String());
-            colorToChoose = spec.get("tableDemo.inputColor").String();
-            colorExpected = spec.get("tableDemo.inputColorExpected").Color();
-            return this;
-        }
+        final int colorColumn = demo.getColumnIndex(spec.get("tableDemo.colorColumn").String());
+        final String colorToChoose = spec.get("tableDemo.inputColor").String();
+        final Color colorExpected = spec.get("tableDemo.inputColorExpected").Color();
     }
 
     /**
@@ -58,8 +47,8 @@ public class TestCellInput {
      * Check that value in the cell equals infinite
      */
     @Test
-    public void TestInputDoubleInfinity(){
-        TestData testData = new TestData().invoke();
+    public void TestInputDoubleInfinity() {
+        TestData testData = new TestData();
 
         String value = demo.inputValueToCell(0, demo.getColumnIndex(testData.doubleColumn), testData.doubleInput);
         Assert.assertEquals(testData.doubleExpected, value);
@@ -71,8 +60,8 @@ public class TestCellInput {
      * Check that cell's background is now of the expected color
      */
     @Test
-    public void TestChooseColor(){
-        TestData testData = new TestData().invoke();
+    public void TestChooseColor() {
+        TestData testData = new TestData();
 
         demo.inputValueToCell(0, testData.colorColumn, testData.colorToChoose);
         Color value = demo.getCellBackgroundColor(0, testData.colorColumn);
@@ -86,8 +75,8 @@ public class TestCellInput {
      * Check that infinite value is at the top
      */
     @Test
-    public void TestInputDoubleInfinityIsSorted(){
-        TestData testData = new TestData().invoke();
+    public void TestInputDoubleInfinityIsSorted() {
+        TestData testData = new TestData();
 
         demo.inputValueToCell(0, demo.getColumnIndex(testData.doubleColumn), testData.doubleInput);
         demo.clickColumnHeader(testData.doubleColumn);

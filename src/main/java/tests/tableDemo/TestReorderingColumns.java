@@ -34,28 +34,14 @@ public class TestReorderingColumns {
     }
 
     private class TestData {
-        private String columnToDrag;
-        private String columnWhereToDrag;
-        private int rowNumber;
-
-        TestData invoke() {
-            columnToDrag = spec.get("tableDemo.columnToDrag").String();
-            columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").String();
-            rowNumber = spec.get("tableDemo.reorderingRowNumber").Int();
-
-            return this;
-        }
+        final String columnToDrag = spec.get("tableDemo.columnToDrag").String();
+        final String columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").String();
+        final int rowNumber = spec.get("tableDemo.reorderingRowNumber").Int();
     }
 
     private class TestDataCells {
-        private String cellToDrag;
-        private String cellWhereToDrop;
-
-        TestDataCells invoke() {
-            cellToDrag = spec.get("tableDemo.cellToDrag").String();
-            cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").String();
-            return this;
-        }
+        final String cellToDrag = spec.get("tableDemo.cellToDrag").String();
+        final String cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").String();
     }
 
     /**
@@ -72,7 +58,7 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnToNewPosition() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
 
         demo.allowReordering();
 
@@ -103,7 +89,7 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnUp() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
 
         demo.allowReordering();
 
@@ -130,7 +116,7 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnUpAndToTheSide() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
 
         demo.allowReordering();
 
@@ -158,7 +144,7 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestTryDragCellUpAndToTheSide() {
-        TestDataCells testDataCells = new TestDataCells().invoke();
+        TestDataCells testDataCells = new TestDataCells();
 
         demo.allowReordering();
 
@@ -182,8 +168,8 @@ public class TestReorderingColumns {
      * Check that the column is in the same position
      */
     @Test
-    public void TestReorderingDisabled(){
-        TestData testData = new TestData().invoke();
+    public void TestReorderingDisabled() {
+        TestData testData = new TestData();
 
         demo.forbidReordering();
 
@@ -209,7 +195,7 @@ public class TestReorderingColumns {
      */
     @Test
     public void TestDragColumnToNewPositionAndBack() {
-        TestData testData = new TestData().invoke();
+        TestData testData = new TestData();
 
         demo.allowReordering();
 
