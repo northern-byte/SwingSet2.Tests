@@ -224,9 +224,4 @@ public class TestReorderingColumns {
 
         Assert.assertEquals(startIndex, endIndex);
     }
-
-    @Test //Prototype
-    public void Prototype() {
-        demo.clickTable();
-    }
 }
