@@ -4,6 +4,7 @@ import abstracts.PageObject;
 import interfaces.pageObjects.Menu;
 import interfaces.pageObjects.View;
 import org.fest.swing.fixture.FrameFixture;
+import org.pmw.tinylog.Logger;
 import utils.Specification;
 
 public class BasicMenu extends PageObject implements Menu {
@@ -15,6 +16,7 @@ public class BasicMenu extends PageObject implements Menu {
 
     public View selectLookAndFeel(String lookAndFeelText) {
         wait.active(() -> frame.menuItemWithPath(spec.get("menu.lookAndFeelMenu").String(), lookAndFeelText)).click();
+        Logger.info(String.format("Selected look: %s", lookAndFeelText));
         return view;
     }
 }

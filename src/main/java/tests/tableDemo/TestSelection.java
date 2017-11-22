@@ -7,6 +7,7 @@ import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
 import org.junit.*;
 import org.junit.rules.Timeout;
+import org.pmw.tinylog.Logger;
 import utils.Platform;
 import utils.Specification;
 
@@ -312,6 +313,7 @@ public class TestSelection {
                 if(j == columnToSkip){
                     continue;
                 }
+                Logger.info(String.format("Cell at (%d, %d)", i, j));
                 Color actualColor = demo.getCellBackgroundColor(i, j);
                 CellInfo cellInfo = new CellInfo(i, j, actualColor);
                 condition.accept(cellInfo);

@@ -7,6 +7,7 @@ import interfaces.pageObjects.TableDemo;
 import interfaces.pageObjects.View;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JToggleButtonFixture;
+import org.pmw.tinylog.Logger;
 import utils.ResourceManager;
 
 public class BasicDemoSwitcher extends PageObject implements DemoSwitcher {
@@ -27,6 +28,7 @@ public class BasicDemoSwitcher extends PageObject implements DemoSwitcher {
     @Override
     public TableDemo goToTableDemo(){
         tableDemoButton.get().click();
+        Logger.info(String.format("To to Table Demo"));
         return view.getTableDemo();
     }
 }

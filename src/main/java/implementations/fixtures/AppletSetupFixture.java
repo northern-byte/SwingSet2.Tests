@@ -16,6 +16,7 @@ import org.fest.swing.launcher.AppletLauncher;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.fest.swing.timing.Timeout;
+import org.pmw.tinylog.Logger;
 import utils.Platform;
 import utils.ResourceManager;
 
@@ -42,6 +43,7 @@ public class AppletSetupFixture implements SetupFixture {
 
         ResourceManager.loadConfigProperties();
         ResourceManager.loadSpecificationProperties();
+        Logger.info("Loaded properties");
         return new DefaultView(factory);
     }
 
@@ -57,6 +59,7 @@ public class AppletSetupFixture implements SetupFixture {
         }
 
         factory = Reflection.constructor().withParameterTypes(FrameFixture.class).in(factoryClass).newInstance(frame);
+        Logger.info(String.format("Created page object factory for configuration: %s", configurationName));
         return factory;
     }
 
@@ -68,6 +71,7 @@ public class AppletSetupFixture implements SetupFixture {
             } else {
                 defaultLook = UIManager.getCrossPlatformLookAndFeelClassName();
             }
+            Logger.info(String.format("Default look : %s", defaultLook));
             UIManager.setLookAndFeel(defaultLook);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
