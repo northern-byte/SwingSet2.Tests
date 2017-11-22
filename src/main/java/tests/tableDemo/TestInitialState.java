@@ -41,6 +41,10 @@ public class TestInitialState {
         String autoresizeMode = spec.get("tableDemo.initialResizeMode").String();
     }
 
+    /**
+     * Go to Table Demo
+     * Check that all controls are set as described in specification
+     */
     @Test
     public void TestInitialState(){
         TestData testData = new TestData();
