@@ -15,15 +15,12 @@ import org.fest.swing.fixture.*;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.fest.swing.timing.Timeout;
-import org.junit.Assert;
 import utils.Platform;
 import utils.ResourceManager;
 
-import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class BasicTableDemo extends PageObject implements TableDemo {

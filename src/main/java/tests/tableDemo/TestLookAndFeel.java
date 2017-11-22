@@ -31,7 +31,7 @@ public class TestLookAndFeel {
     @Before
     public void Setup() {
         view = setupFixture.init();
-        prepareDemo.prepair(view);
+        prepareDemo.prepare(view);
     }
 
     @After

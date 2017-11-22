@@ -21,7 +21,7 @@ public class TestInitialState {
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepare(setupFixture.init());
     }
 
     @After

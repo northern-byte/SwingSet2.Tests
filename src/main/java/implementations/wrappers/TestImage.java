@@ -43,9 +43,9 @@ public class TestImage extends ImageIcon {
         int oh = otherTestImage.bufferedImage.getHeight();
         int ow = otherTestImage.bufferedImage.getWidth();
 
-        if (bh != oh || bw != ow) {
-            return false;
+        if (bh == oh && bw == ow) {
+            return imageHelper.imagesAreEqual(bufferedImage, otherTestImage.bufferedImage);
         }
-        return imageHelper.imagesAreEqual(bufferedImage, otherTestImage.bufferedImage);
+        return false;
     }
 }

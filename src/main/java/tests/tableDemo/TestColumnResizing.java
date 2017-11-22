@@ -23,7 +23,7 @@ public class TestColumnResizing {
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepare(setupFixture.init());
     }
 
     @After
@@ -242,7 +242,6 @@ public class TestColumnResizing {
         int[] newWidths = getColumnWidths();
 
         Assert.assertArrayEquals(originalWidths, newWidths);
-        ;
     }
 
     /**

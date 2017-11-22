@@ -35,7 +35,7 @@ public class TestSorting {
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepare(setupFixture.init());
     }
 
     @After
@@ -115,13 +115,7 @@ public class TestSorting {
         }
         try {
             return type.getDeclaredConstructor(object.getClass()).newInstance(object);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;

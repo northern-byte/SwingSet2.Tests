@@ -23,7 +23,7 @@ public class TestTableIntercellSpace {
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepair(setupFixture.init());
+        demo = prepareDemo.prepare(setupFixture.init());
     }
 
     @After
@@ -41,10 +41,10 @@ public class TestTableIntercellSpace {
         demo.setIntercellSpacingToMax();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
-        int maxHight = spec.get("tableDemo.intercellMaxHeight").Int();
+        int maxHeight = spec.get("tableDemo.intercellMaxHeight").Int();
         int maxHWidth = spec.get("tableDemo.intercellMaxWidth").Int();
 
-        Assert.assertTrue(newSpacing.height == maxHight && newSpacing.width == maxHWidth);
+        Assert.assertTrue(newSpacing.height == maxHeight && newSpacing.width == maxHWidth);
     }
 
     /**
@@ -57,10 +57,10 @@ public class TestTableIntercellSpace {
         demo.setIntercellSpacingToMin();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
-        int minHight = spec.get("tableDemo.intercellMinHeight").Int();
+        int minHeight = spec.get("tableDemo.intercellMinHeight").Int();
         int minHWidth = spec.get("tableDemo.intercellMinWidth").Int();
 
-        Assert.assertTrue(newSpacing.height == minHight && newSpacing.width == minHWidth);
+        Assert.assertTrue(newSpacing.height == minHeight && newSpacing.width == minHWidth);
     }
 
     /**

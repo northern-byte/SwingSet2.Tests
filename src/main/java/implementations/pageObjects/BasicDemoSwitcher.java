@@ -28,7 +28,7 @@ public class BasicDemoSwitcher extends PageObject implements DemoSwitcher {
     @Override
     public TableDemo goToTableDemo(){
         tableDemoButton.get().click();
-        Logger.info(String.format("To to Table Demo"));
+        Logger.info("To to Table Demo");
         return view.getTableDemo();
     }
 }

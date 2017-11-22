@@ -27,7 +27,7 @@ public class TestLines {
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepair(setupFixture.init(), spec.get("menu.lookAndFeel").String());
+        demo = prepareDemo.prepare(setupFixture.init(), spec.get("menu.lookAndFeel").String());
     }
 
     @After
