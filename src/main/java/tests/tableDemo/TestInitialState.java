@@ -8,6 +8,7 @@ import interfaces.pageObjects.TableDemo;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import utils.Platform;
+import utils.ResourceManager;
 import utils.Specification;
 
 public class TestInitialState {
