@@ -37,8 +37,8 @@ public class TestInitialState {
         boolean columnSelection = spec.get("tableDemo.initialColumnSelection").Boolean();
         int intercellSpacing = spec.get("tableDemo.initialIntercellSpacing").Int();
         int rowHeight = spec.get("tableDemo.initialRowHeight").Int();
-        String selectionMode = spec.get("tableDemo.initialSelectMode").String();
-        String autoresizeMode = spec.get("tableDemo.initialResizeMode").String();
+        String selectionMode = ResourceManager.getResString("TableDemo.multiple_ranges");
+        String autoresizeMode = ResourceManager.getResString("TableDemo.subsequent_columns");
     }
 
     /**
