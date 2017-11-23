@@ -17,6 +17,7 @@ dependencies {
 }
 
 task integrationTest(type: Test) {
+    forkEvery = 1
     testClassesDirs = sourceSets.main.output.classesDirs
     classpath = sourceSets.main.runtimeClasspath
     outputs.upToDateWhen { false }
