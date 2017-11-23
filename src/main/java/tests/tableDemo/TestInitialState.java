@@ -2,31 +2,53 @@ package tests.tableDemo;
 
 import implementations.fixtures.AppletSetupFixture;
 import implementations.fixtures.TableDemoPrepareFixture;
+import interfaces.fixtures.LocaleFixture;
 import interfaces.fixtures.PrepareFixture;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
 import org.junit.*;
 import org.junit.rules.Timeout;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import utils.Platform;
+import utils.ResourceManager;
 import utils.Specification;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Locale;
+
+@RunWith(value = Parameterized.class)
 public class TestInitialState {
     private final SetupFixture setupFixture = new AppletSetupFixture();
     private final PrepareFixture<TableDemo> prepareDemo = new TableDemoPrepareFixture();
+    private final LocaleFixture localeFixture = new implementations.fixtures.LocaleFixture();
     private final Specification spec = new Specification();
     private TableDemo demo;
+    private Locale locale;
 
     @Rule
     public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
 
+    @Parameterized.Parameters(name = "{0}")
+    public static Collection<Locale> data() {
+        return Arrays.asList(Locale.JAPANESE);
+    }
+
     @Before
     public void Setup() {
+        localeFixture.SetLocale(locale);
         demo = prepareDemo.prepare(setupFixture.init());
+    }
+
+    public TestInitialState(Locale locale) {
+        this.locale = locale;
     }
 
     @After
     public void Close() {
         setupFixture.dispose();
+        localeFixture.resetDefault();
     }
 
     private class TestData {
