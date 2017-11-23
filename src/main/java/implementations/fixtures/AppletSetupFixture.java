@@ -29,6 +29,8 @@ public class AppletSetupFixture implements SetupFixture {
 
     @Override
     public View init() {
+        ResourceManager.loadBundle();
+
         resetLookAndFeel();
         applet = GuiActionRunner.execute(new GuiQuery<AppletViewer>() {
             @Override

@@ -19,7 +19,11 @@ public class ResourceManager {
     private static boolean configPropertiesAreLoaded = false;
     private static boolean specificationPropertiesAreLoaded = false;
 
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+    private static ResourceBundle BUNDLE;
+
+    public static void loadBundle() {
+        BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+    }
 
     public static synchronized InputStream getResInputStream(String path) {
         InputStream inputStream = ResourceManager.class.getClassLoader().getResourceAsStream(path);
