@@ -6,6 +6,7 @@ import org.fest.swing.core.GenericTypeMatcher;
 import org.fest.swing.fixture.FrameFixture;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -54,5 +55,11 @@ public abstract class PageObject {
         return getMatcher(JToggleButton.class, condition);
     }
 
-
+    protected GenericTypeMatcher<JPanel> getPanelMatcher(String expectedTitle){
+        Function<JPanel, Boolean> condition = c -> {
+            TitledBorder border = (TitledBorder) c.getBorder();
+            return border != null && Objects.equals(border.getTitle(), expectedTitle);
+        };
+        return getMatcher(JPanel.class, condition);
+    }
 }
