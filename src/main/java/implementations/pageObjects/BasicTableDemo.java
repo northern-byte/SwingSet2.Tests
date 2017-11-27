@@ -18,10 +18,13 @@ import org.fest.swing.timing.Timeout;
 import utils.Platform;
 import utils.ResourceManager;
 
+import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BasicTableDemo extends PageObject implements TableDemo {
 
@@ -48,6 +51,8 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     private final String rowHeightSliderName = ResourceManager.getResString("TableDemo.row_height");
     private final String selectionDefaultValue = ResourceManager.getResString("TableDemo.multiple_ranges");
     private final String resizeDefaultValue = ResourceManager.getResString("TableDemo.subsequent_columns");
+    private final String resizePanelTitle = ResourceManager.getResString("TableDemo.autoresize_mode");
+    private final String selectionPanelTitle = ResourceManager.getResString("TableDemo.selection_mode");
     //endregion
 
     //region Components
@@ -69,6 +74,9 @@ public class BasicTableDemo extends PageObject implements TableDemo {
 
     protected Lazy<JComboBoxFixture> selectionModeComboBox = wait.lazy(() -> frame.comboBox(getComboBoxSelectedMatcher(selectionDefaultValue)));
     protected Lazy<JComboBoxFixture> resizeModeComboBox = wait.lazy(() -> frame.comboBox(getComboBoxSelectedMatcher(resizeDefaultValue)));
+
+    protected Lazy<JPanelFixture> resizePanel = wait.lazy(() -> frame.panel(getPanelMatcher(resizePanelTitle)));
+    protected Lazy<JPanelFixture> selectionPanel = wait.lazy(() -> frame.panel(getPanelMatcher(selectionPanelTitle)));
     //endregion
 
     @Override
@@ -137,7 +145,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
-    public int setRowHeightTo(int value){
+    public int setRowHeightTo(int value) {
         JSliderFixture slider = rowHeightSlider.get().slideTo(value);
         return slider.target.getValue();
     }
@@ -148,7 +156,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
-    public int getColumnCount(){
+    public int getColumnCount() {
         return tableView.get().target.getColumnModel().getColumnCount();
     }
 
@@ -158,19 +166,19 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
-    public int getColumnWidth(int index){
+    public int getColumnWidth(int index) {
         return tableView.get().target.getColumnModel().getColumn(index).getWidth();
     }
 
     @Override
-    public int getColumnWidth(String columnName){
+    public int getColumnWidth(String columnName) {
         int index = getColumnIndex(columnName);
         return getColumnWidth(index);
     }
 
     @Override
     public String getStringFromTableCell(int row, int column) {
-        return (String)tableView.get().target.getValueAt(row, column);
+        return (String) tableView.get().target.getValueAt(row, column);
     }
 
     @Override
@@ -333,7 +341,7 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     }
 
     @Override
-    public Object getValueFromCell(int row, int column){
+    public Object getValueFromCell(int row, int column) {
         return tableView.get().target.getValueAt(row, column);
     }
 
@@ -407,5 +415,23 @@ public class BasicTableDemo extends PageObject implements TableDemo {
     @Override
     public String getAutoresizeMode() {
         return (String) resizeModeComboBox.get().target.getSelectedItem();
+    }
+
+    @Override
+    public boolean isResizeModeControlInPanel() {
+        JPanel panel = resizePanel.get().target;
+        JComboBox box = getComboBoxInPanel(panel);
+        return box.equals(resizeModeComboBox.get().target);
+    }
+
+    @Override
+    public boolean isSelectioneModeControlInPanel() {
+        JPanel panel = selectionPanel.get().target;
+        JComboBox box = getComboBoxInPanel(panel);
+        return box.equals(selectionModeComboBox.get().target);
+    }
+
+    private JComboBox getComboBoxInPanel(JPanel panel) {
+        return (JComboBox) Arrays.stream(panel.getComponents()).filter(c -> c instanceof JComboBox).collect(Collectors.toList()).get(0);
     }
 }

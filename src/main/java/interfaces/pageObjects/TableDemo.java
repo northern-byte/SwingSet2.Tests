@@ -122,4 +122,8 @@ public interface TableDemo extends Demo {
     String getSelectionMode();
 
     String getAutoresizeMode();
+
+    boolean isResizeModeControlInPanel();
+
+    boolean isSelectioneModeControlInPanel();
 }
