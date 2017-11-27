@@ -40,6 +40,8 @@ public class TestInitialState {
         int rowHeight = spec.get("tableDemo.initialRowHeight").Int();
         String selectionMode = ResourceManager.getResString("TableDemo.multiple_ranges");
         String autoresizeMode = ResourceManager.getResString("TableDemo.subsequent_columns");
+        boolean isResizeModeControlIsInPanel = spec.get("tableDemo.initialResizeInPanel").Boolean();
+        boolean isSelectionModeControlInPanel = spec.get("tableDemo.initialSelectionInPanel").Boolean();
     }
 
     /**
@@ -68,5 +70,7 @@ public class TestInitialState {
         Assert.assertEquals(rowHeight, testData.rowHeight);
         Assert.assertEquals(selectionMode, testData.selectionMode);
         Assert.assertEquals(autoresizeMode, testData.autoresizeMode);
+        Assert.assertEquals(demo.isResizeModeControlInPanel(), testData.isResizeModeControlIsInPanel);
+        Assert.assertEquals(demo.isSelectioneModeControlInPanel(), testData.isSelectionModeControlInPanel);
     }
 }
