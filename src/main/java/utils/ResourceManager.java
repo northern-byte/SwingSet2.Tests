@@ -21,7 +21,7 @@ public class ResourceManager {
 
     private static ResourceBundle BUNDLE;
 
-    public static void loadBundle() {
+    public static synchronized void loadBundle() {
         BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
     }
 
