@@ -9,15 +9,15 @@ public class Platform {
     private static final String MAC_PREFIX = "mac";
     private static final String LINUX_PREFIX = "unix";
 
-    private static boolean isMac() {
+    public static boolean isMac() {
         return OS.contains("mac");
     }
 
-    private static boolean isWindows() {
+    public static boolean isWindows() {
         return OS.contains("win");
     }
 
-    private static boolean isLinux() {
+    public static boolean isLinux() {
         return OS.contains("nux");
     }
 
