@@ -27,7 +27,7 @@ public class Specification {
         for (String spec : specificationsLinkedList) {
             try {
                 specProp = ResourceManager.getSpecProp((String.format("%s.%s", spec, key)));
-            } catch (Exception ignored) {
+            } catch (NoSuchPropertyException ignored) {
 
             }
         }

@@ -25,7 +25,7 @@ public class Platform {
         Prop specProp = null;
             try {
                 specProp = ResourceManager.getConfigProp((String.format("%s.%s", getPlatformPrefix(), key)));
-            } catch (Exception ignored) {
+            } catch (NoSuchPropertyException ignored) {
 
             }
 
