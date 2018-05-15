@@ -41,7 +41,7 @@ public class Specification {
     }
 
     public static Collection<String> getSpecifications() {
-        String specificationsString = Platform.getConfigProp(SPECIFICATIONS_PROPERTY_NAME).String();
+        String specificationsString = Platform.getConfigProp(SPECIFICATIONS_PROPERTY_NAME).asString();
         return Arrays.asList(specificationsString.split(SEPARATOR));
     }
 }

@@ -21,7 +21,7 @@ public class TestReorderingColumns {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -34,14 +34,14 @@ public class TestReorderingColumns {
     }
 
     private class TestData {
-        final String columnToDrag = spec.get("tableDemo.columnToDrag").String();
-        final String columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").String();
-        final int rowNumber = spec.get("tableDemo.reorderingRowNumber").Int();
+        final String columnToDrag = spec.get("tableDemo.columnToDrag").asString();
+        final String columnWhereToDrag = spec.get("tableDemo.columnWhereToDrag").asString();
+        final int rowNumber = spec.get("tableDemo.reorderingRowNumber").asInt();
     }
 
     private class TestDataCells {
-        final String cellToDrag = spec.get("tableDemo.cellToDrag").String();
-        final String cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").String();
+        final String cellToDrag = spec.get("tableDemo.cellToDrag").asString();
+        final String cellWhereToDrop = spec.get("tableDemo.cellWhereToDrop").asString();
     }
 
     /**

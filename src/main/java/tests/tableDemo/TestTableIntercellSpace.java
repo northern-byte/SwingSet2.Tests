@@ -19,7 +19,7 @@ public class TestTableIntercellSpace {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -41,8 +41,8 @@ public class TestTableIntercellSpace {
         demo.setIntercellSpacingToMax();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
-        int maxHeight = spec.get("tableDemo.intercellMaxHeight").Int();
-        int maxHWidth = spec.get("tableDemo.intercellMaxWidth").Int();
+        int maxHeight = spec.get("tableDemo.intercellMaxHeight").asInt();
+        int maxHWidth = spec.get("tableDemo.intercellMaxWidth").asInt();
 
         Assert.assertTrue(newSpacing.height == maxHeight && newSpacing.width == maxHWidth);
     }
@@ -57,8 +57,8 @@ public class TestTableIntercellSpace {
         demo.setIntercellSpacingToMin();
         Dimension newSpacing = demo.getTableIntercellSpacing();
 
-        int minHeight = spec.get("tableDemo.intercellMinHeight").Int();
-        int minHWidth = spec.get("tableDemo.intercellMinWidth").Int();
+        int minHeight = spec.get("tableDemo.intercellMinHeight").asInt();
+        int minHWidth = spec.get("tableDemo.intercellMinWidth").asInt();
 
         Assert.assertTrue(newSpacing.height == minHeight && newSpacing.width == minHWidth);
     }

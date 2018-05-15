@@ -15,7 +15,7 @@ public class BasicMenu extends PageObject implements Menu {
     protected Specification spec = new Specification();
 
     public View selectLookAndFeel(String lookAndFeelText) {
-        wait.active(() -> frame.menuItemWithPath(spec.get("menu.lookAndFeelMenu").String(), lookAndFeelText)).click();
+        wait.active(() -> frame.menuItemWithPath(spec.get("menu.lookAndFeelMenu").asString(), lookAndFeelText)).click();
         Logger.info(String.format("Selected look: %s", lookAndFeelText));
         return view;
     }

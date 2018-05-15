@@ -17,7 +17,7 @@ public class TestTableRowHeight {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -39,7 +39,7 @@ public class TestTableRowHeight {
         demo.setRowHeightToMax();
         int newHeight = demo.getTableRowHeight();
 
-        int maxHeight = spec.get("tableDemo.maxRowHeight").Int();
+        int maxHeight = spec.get("tableDemo.maxRowHeight").asInt();
 
         Assert.assertTrue(newHeight == maxHeight);
     }
@@ -54,7 +54,7 @@ public class TestTableRowHeight {
         demo.setRowHeightToMin();
         int newHeight = demo.getTableRowHeight();
 
-        int minHeight = spec.get("tableDemo.minRowHeight").Int();
+        int minHeight = spec.get("tableDemo.minRowHeight").asInt();
 
         Assert.assertTrue(newHeight == minHeight);
     }

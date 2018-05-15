@@ -19,7 +19,7 @@ public class TestCellInput {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -32,13 +32,13 @@ public class TestCellInput {
     }
 
     private class TestData {
-        final String doubleColumn = spec.get("tableDemo.numberColumn").String();
-        final String doubleInput = spec.get("tableDemo.inputDouble").String();
-        final String doubleExpected = spec.get("tableDemo.inputDoubleExpected").String();
+        final String doubleColumn = spec.get("tableDemo.numberColumn").asString();
+        final String doubleInput = spec.get("tableDemo.inputDouble").asString();
+        final String doubleExpected = spec.get("tableDemo.inputDoubleExpected").asString();
 
-        final int colorColumn = demo.getColumnIndex(spec.get("tableDemo.colorColumn").String());
-        final String colorToChoose = spec.get("tableDemo.inputColor").String();
-        final Color colorExpected = spec.get("tableDemo.inputColorExpected").Color();
+        final int colorColumn = demo.getColumnIndex(spec.get("tableDemo.colorColumn").asString());
+        final String colorToChoose = spec.get("tableDemo.inputColor").asString();
+        final Color colorExpected = spec.get("tableDemo.inputColorExpected").asColor();
     }
 
     /**

@@ -26,7 +26,7 @@ public class TestLookAndFeel {
     private View view;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -56,15 +56,15 @@ public class TestLookAndFeel {
             for (String look : looks) {
                 Logger.info(look);
                 Specification spec = new Specification(look);
-                menu.selectLookAndFeel(spec.get("menu.lookAndFeel").String());
+                menu.selectLookAndFeel(spec.get("menu.lookAndFeel").asString());
 
                 Color gridColor = demo.getGridColor();
                 Color actualColor = demo.getCellBackgroundColor(0, 0);
                 boolean showGridByDefault = demo.horizontalLinesEnabled() || demo.verticalLinesEnabled();
 
-                Assert.assertEquals(spec.get("tableDemo.showGrid").Boolean(), showGridByDefault);
-                Assert.assertEquals(spec.get("tableDemo.gridColor").Color().getRGB(), gridColor.getRGB());
-                Assert.assertEquals(spec.get("tableDemo.selectionColor").Color().getRGB(), actualColor.getRGB());
+                Assert.assertEquals(spec.get("tableDemo.showGrid").asBoolean(), showGridByDefault);
+                Assert.assertEquals(spec.get("tableDemo.gridColor").asColor().getRGB(), gridColor.getRGB());
+                Assert.assertEquals(spec.get("tableDemo.selectionColor").asColor().getRGB(), actualColor.getRGB());
             }
         };
 

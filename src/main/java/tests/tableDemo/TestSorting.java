@@ -31,7 +31,7 @@ public class TestSorting {
     private Class<?> contentType;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -44,21 +44,21 @@ public class TestSorting {
     }
 
     private static class TestData {
-        private static String textColumn = spec.get("tableDemo.textColumn").String();
-        private static String firstText = spec.get("tableDemo.firstText").String();
-        private static String lastText = spec.get("tableDemo.lastText").String();
+        private static String textColumn = spec.get("tableDemo.textColumn").asString();
+        private static String firstText = spec.get("tableDemo.firstText").asString();
+        private static String lastText = spec.get("tableDemo.lastText").asString();
 
-        private static String numberColumn = spec.get("tableDemo.numberColumn").String();
-        private static Double firstNumber = spec.get("tableDemo.firstNumber").Double();
-        private static Double lastNumber = spec.get("tableDemo.lastNumber").Double();
+        private static String numberColumn = spec.get("tableDemo.numberColumn").asString();
+        private static Double firstNumber = spec.get("tableDemo.firstNumber").asDouble();
+        private static Double lastNumber = spec.get("tableDemo.lastNumber").asDouble();
 
-        private static String colorColumn = spec.get("tableDemo.colorColumn").String();
-        private static Color firstColor = spec.get("tableDemo.firstColor").Color();
-        private static Color lastColor = spec.get("tableDemo.lastColor").Color();
+        private static String colorColumn = spec.get("tableDemo.colorColumn").asString();
+        private static Color firstColor = spec.get("tableDemo.firstColor").asColor();
+        private static Color lastColor = spec.get("tableDemo.lastColor").asColor();
 
-        private static String imageColumn = spec.get("tableDemo.imageColumn").String();
-        private static TestImage firstImage = spec.get("tableDemo.firstImage").TestImage();
-        private static TestImage lastImage = spec.get("tableDemo.lastImage").TestImage();
+        private static String imageColumn = spec.get("tableDemo.imageColumn").asString();
+        private static TestImage firstImage = spec.get("tableDemo.firstImage").asTestImage();
+        private static TestImage lastImage = spec.get("tableDemo.lastImage").asTestImage();
     }
 
     @Parameterized.Parameters(name = "{0}")

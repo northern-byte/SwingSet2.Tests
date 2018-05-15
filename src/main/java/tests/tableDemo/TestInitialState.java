@@ -18,7 +18,7 @@ public class TestInitialState {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -31,13 +31,13 @@ public class TestInitialState {
     }
 
     private class TestData {
-        boolean reordering = spec.get("tableDemo.initialReordering").Boolean();
-        boolean horizLines = spec.get("tableDemo.initialHorizLines").Boolean();
-        boolean vertLines = spec.get("tableDemo.initialVertLines").Boolean();
-        boolean rowSelection = spec.get("tableDemo.initialRowSelection").Boolean();
-        boolean columnSelection = spec.get("tableDemo.initialColumnSelection").Boolean();
-        int intercellSpacing = spec.get("tableDemo.initialIntercellSpacing").Int();
-        int rowHeight = spec.get("tableDemo.initialRowHeight").Int();
+        boolean reordering = spec.get("tableDemo.initialReordering").asBoolean();
+        boolean horizLines = spec.get("tableDemo.initialHorizLines").asBoolean();
+        boolean vertLines = spec.get("tableDemo.initialVertLines").asBoolean();
+        boolean rowSelection = spec.get("tableDemo.initialRowSelection").asBoolean();
+        boolean columnSelection = spec.get("tableDemo.initialColumnSelection").asBoolean();
+        int intercellSpacing = spec.get("tableDemo.initialIntercellSpacing").asInt();
+        int rowHeight = spec.get("tableDemo.initialRowHeight").asInt();
         String selectionMode = ResourceManager.getResString("TableDemo.multiple_ranges");
         String autoresizeMode = ResourceManager.getResString("TableDemo.subsequent_columns");
     }

@@ -13,11 +13,11 @@ public class Prop {
         this.value = value;
     }
 
-    public String String() {
+    public String asString() {
         return value;
     }
 
-    public int Int() {
+    public int asInt() {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
@@ -25,7 +25,7 @@ public class Prop {
         }
     }
 
-    public double Double() {
+    public double asDouble() {
         try {
             return Double.parseDouble(value);
         } catch (NumberFormatException e) {
@@ -33,16 +33,16 @@ public class Prop {
         }
     }
 
-    public Color Color() {
+    public Color asColor() {
         Integer[] rgb = Arrays.stream(value.split(colorSeparator)).map(Integer::parseInt).toArray(Integer[]::new);
         return new Color(rgb[0], rgb[1], rgb[2]);
     }
 
-    public TestImage TestImage() {
+    public TestImage asTestImage() {
         return new TestImage(value);
     }
 
-    public boolean Boolean(){
+    public boolean asBoolean(){
         return Boolean.parseBoolean(value);
     }
 }

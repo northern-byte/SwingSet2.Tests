@@ -19,7 +19,7 @@ public class TestColumnResizing {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
@@ -32,14 +32,14 @@ public class TestColumnResizing {
     }
 
     private class TestData {
-        final String resizeModeOff = spec.get("tableDemo.resizeOff").String();
-        final String resizeModeColumnBoundaries = spec.get("tableDemo.resizeColumnBoundaries").String();
-        final String resizeModeSubsequentColumns = spec.get("tableDemo.resizeSubsequentColumns").String();
-        final String resizeModeLastColumn = spec.get("tableDemo.resizeLastColumn").String();
-        final String resizeModeAllColumns = spec.get("tableDemo.resizeAllColumns").String();
+        final String resizeModeOff = spec.get("tableDemo.resizeOff").asString();
+        final String resizeModeColumnBoundaries = spec.get("tableDemo.resizeColumnBoundaries").asString();
+        final String resizeModeSubsequentColumns = spec.get("tableDemo.resizeSubsequentColumns").asString();
+        final String resizeModeLastColumn = spec.get("tableDemo.resizeLastColumn").asString();
+        final String resizeModeAllColumns = spec.get("tableDemo.resizeAllColumns").asString();
 
-        final String columnToResizeName = spec.get("tableDemo.columnToResize").String();
-        final String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").String();
+        final String columnToResizeName = spec.get("tableDemo.columnToResize").asString();
+        final String columnWhereToResizeName = spec.get("tableDemo.columnWhereToResize").asString();
     }
 
     /**

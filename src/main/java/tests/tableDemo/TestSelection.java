@@ -21,11 +21,11 @@ public class TestSelection {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepare(setupFixture.init(), spec.get("menu.lookAndFeel").String());
+        demo = prepareDemo.prepare(setupFixture.init(), spec.get("menu.lookAndFeel").asString());
     }
 
     @After
@@ -34,18 +34,18 @@ public class TestSelection {
     }
 
     private class TestData {
-        final String selectionModeSingle = spec.get("tableDemo.selectionModeSingle").String();
-        final String selectionModeOneRange = spec.get("tableDemo.selectionModeOneRange").String();
-        final String selectionModeMultipleRanges = spec.get("tableDemo.selectionModeMultipleRanges").String();
+        final String selectionModeSingle = spec.get("tableDemo.selectionModeSingle").asString();
+        final String selectionModeOneRange = spec.get("tableDemo.selectionModeOneRange").asString();
+        final String selectionModeMultipleRanges = spec.get("tableDemo.selectionModeMultipleRanges").asString();
 
-        final int rowToStartSelect = spec.get("tableDemo.rowToStartSelect").Int();
-        final int columnToStartSelect = spec.get("tableDemo.columnToStartSelect").Int();
-        final int rowToEndSelect = spec.get("tableDemo.rowToEndSelect").Int();
-        final int columnToEndSelect = spec.get("tableDemo.columnToEndSelect").Int();
-        final String columnToSkip = spec.get("tableDemo.columnToSkip").String();
-        final Color selectionColor = spec.get("tableDemo.selectionColor").Color();
-        final int rowToSelectFirst = spec.get("tableDemo.rowToSelectFirst").Int();
-        final int rowToSelectSecond = spec.get("tableDemo.rowToSelectSecond").Int();
+        final int rowToStartSelect = spec.get("tableDemo.rowToStartSelect").asInt();
+        final int columnToStartSelect = spec.get("tableDemo.columnToStartSelect").asInt();
+        final int rowToEndSelect = spec.get("tableDemo.rowToEndSelect").asInt();
+        final int columnToEndSelect = spec.get("tableDemo.columnToEndSelect").asInt();
+        final String columnToSkip = spec.get("tableDemo.columnToSkip").asString();
+        final Color selectionColor = spec.get("tableDemo.selectionColor").asColor();
+        final int rowToSelectFirst = spec.get("tableDemo.rowToSelectFirst").asInt();
+        final int rowToSelectSecond = spec.get("tableDemo.rowToSelectSecond").asInt();
     }
 
     /**

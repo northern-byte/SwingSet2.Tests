@@ -23,11 +23,11 @@ public class TestLines {
     private TableDemo demo;
 
     @Rule
-    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").Int());
+    public Timeout globalTimeout = Timeout.millis(Platform.getConfigProp("testTimeout").asInt());
 
     @Before
     public void Setup() {
-        demo = prepareDemo.prepare(setupFixture.init(), spec.get("menu.lookAndFeel").String());
+        demo = prepareDemo.prepare(setupFixture.init(), spec.get("menu.lookAndFeel").asString());
     }
 
     @After
@@ -46,7 +46,7 @@ public class TestLines {
 
     private class TestData {
         public Color getSpecGridColor() {
-            return spec.get("tableDemo.gridColor").Color();
+            return spec.get("tableDemo.gridColor").asColor();
         }
     }
 

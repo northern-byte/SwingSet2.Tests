@@ -35,11 +35,11 @@ public class AppletSetupFixture implements SetupFixture {
         applet = GuiActionRunner.execute(new GuiQuery<AppletViewer>() {
             @Override
             protected AppletViewer executeInEDT() throws Throwable {
-                return AppletLauncher.applet(Platform.getConfigProp("sutStartClass").String()).start();
+                return AppletLauncher.applet(Platform.getConfigProp("sutStartClass").asString()).start();
             }
         });
         frame = new FrameFixture(applet);
-        frame.robot.settings().delayBetweenEvents(Platform.getConfigProp("delayBetweenEvents").Int());
+        frame.robot.settings().delayBetweenEvents(Platform.getConfigProp("delayBetweenEvents").asInt());
 
         ViewFactory factory = getFactory();
 
@@ -51,7 +51,7 @@ public class AppletSetupFixture implements SetupFixture {
 
     private ViewFactory getFactory() {
         ViewFactory factory;
-        String configurationName = Platform.getConfigProp("configuration").String();
+        String configurationName = Platform.getConfigProp("configuration").asString();
 
         Class<? extends ViewFactory> factoryClass;
         try {
@@ -68,7 +68,7 @@ public class AppletSetupFixture implements SetupFixture {
     private void resetLookAndFeel() {
         try {
             String defaultLook;
-            if(Platform.getConfigProp("systemLook").Boolean()){
+            if(Platform.getConfigProp("systemLook").asBoolean()){
                 defaultLook = UIManager.getSystemLookAndFeelClassName();
             } else {
                 defaultLook = UIManager.getCrossPlatformLookAndFeelClassName();
@@ -91,7 +91,7 @@ public class AppletSetupFixture implements SetupFixture {
                 public boolean test() {
                     return !applet.appletLoaded();
                 }
-            }, Timeout.timeout(Platform.getConfigProp("disposeTimeout").Int()));
+            }, Timeout.timeout(Platform.getConfigProp("disposeTimeout").asInt()));
         }catch (NullPointerException e){
             throw new FixtureNotInitializedException("You need to call init() first to create applet and frame");
         }
