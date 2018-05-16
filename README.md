@@ -26,6 +26,7 @@ You can just run this task, because it will trigger the "build" task in the proc
    - Windows: gradlew.bat integrationTest
    ```
  4. Don't touch the mouse and the keyboard for the duration of a test run.
+
 ## Configuring
 There are two configuration points in the project: config and specifications.
 ### Config
