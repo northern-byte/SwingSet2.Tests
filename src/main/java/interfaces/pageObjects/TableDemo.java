@@ -2,7 +2,7 @@ package interfaces.pageObjects;
 
 import java.awt.*;
 
-public interface TableDemo extends Demo {
+public interface TableDemo {
     int getIntercellSpacingMax();
 
     int getIntercellSpacingMin();
