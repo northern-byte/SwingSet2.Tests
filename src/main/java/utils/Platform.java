@@ -7,7 +7,7 @@ public class Platform {
     private static final String OS = System.getProperty("os.name").toLowerCase();
     private static final String WINDOWS_PREFIX = "windows";
     private static final String MAC_PREFIX = "mac";
-    private static final String LINUX_PREFIX = "unix";
+    private static final String LINUX_PREFIX = "linux";
 
     private static boolean isMac() {
         return OS.contains("mac");
