@@ -41,7 +41,9 @@ public class AppletSetupFixture implements SetupFixture {
         frame = new FrameFixture(applet);
         frame.robot.settings().delayBetweenEvents(Platform.getConfigProp("delayBetweenEvents").asInt());
 
-        ViewFactory factory = getFactory();
+        String configurationName = Platform.getConfigProp("configuration").asString();
+
+        ViewFactory factory = getFactory(configurationName);
 
         ResourceManager.loadConfigProperties();
         ResourceManager.loadSpecificationProperties();
@@ -49,9 +51,8 @@ public class AppletSetupFixture implements SetupFixture {
         return new DefaultView(factory);
     }
 
-    private ViewFactory getFactory() {
+    private ViewFactory getFactory(String configurationName) {
         ViewFactory factory;
-        String configurationName = Platform.getConfigProp("configuration").asString();
 
         Class<? extends ViewFactory> factoryClass;
         try {
