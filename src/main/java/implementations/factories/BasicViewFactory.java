@@ -3,7 +3,6 @@ package implementations.factories;
 import implementations.pageObjects.BasicDemoSwitcher;
 import implementations.pageObjects.BasicMenu;
 import implementations.pageObjects.BasicTableDemo;
-import implementations.pageObjects.DefaultView;
 import interfaces.factories.ViewFactory;
 import interfaces.pageObjects.DemoSwitcher;
 import interfaces.pageObjects.Menu;
@@ -13,25 +12,23 @@ import org.fest.swing.fixture.FrameFixture;
 
 public class BasicViewFactory implements ViewFactory {
 
-    private FrameFixture frame;
-    private View view = new DefaultView(this);
-
+    private FrameFixture _frame;
     public BasicViewFactory(FrameFixture frame) {
-        this.frame = frame;
+        _frame = frame;
     }
 
     @Override
-    public Menu createMenu() {
-        return new BasicMenu(frame, view);
+    public Menu createMenu(View view) {
+        return new BasicMenu(_frame, view);
     }
 
     @Override
-    public DemoSwitcher createDemoSwitcher() {
-        return new BasicDemoSwitcher(frame, view);
+    public DemoSwitcher createDemoSwitcher(View view) {
+        return new BasicDemoSwitcher(_frame, view);
     }
 
     @Override
-    public TableDemo createTableDemo() {
-        return new BasicTableDemo(frame, view);
+    public TableDemo createTableDemo(View view) {
+        return new BasicTableDemo(_frame, view);
     }
 }
