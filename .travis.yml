@@ -11,4 +11,4 @@ cache:
   - $HOME/.gradle
 
 script:
-  - ./gradlew build
+  - xvfb-run -a --server-args="-screen 0 1920x1080x24" ./gradlew -s integrationTest

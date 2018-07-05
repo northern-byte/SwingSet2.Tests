@@ -2,19 +2,25 @@ package implementations.factories;
 
 import implementations.pageObjects.BasicDemoSwitcher;
 import implementations.pageObjects.BasicMenu;
-import implementations.pageObjects.BasicTableDemo;
+import implementations.pageObjects.HeadlessTableDemo;
 import interfaces.factories.ViewFactory;
 import interfaces.pageObjects.DemoSwitcher;
 import interfaces.pageObjects.Menu;
 import interfaces.pageObjects.TableDemo;
 import interfaces.pageObjects.View;
 import org.fest.swing.fixture.FrameFixture;
+import utils.Platform;
 
-public class BasicViewFactory implements ViewFactory {
+public class HeadlessViewFactory implements ViewFactory {
 
+    private final int _maxWindowWidth;
+    private final int _maxWindowHeight;
     private FrameFixture _frame;
-    public BasicViewFactory(FrameFixture frame) {
+
+    public HeadlessViewFactory(FrameFixture frame) {
         _frame = frame;
+        _maxWindowWidth = Platform.getConfigProp("maxWindowWidth").asInt();
+        _maxWindowHeight = Platform.getConfigProp("maxWindowHeight").asInt();
     }
 
     @Override
@@ -29,6 +35,6 @@ public class BasicViewFactory implements ViewFactory {
 
     @Override
     public TableDemo createTableDemo(View view) {
-        return new BasicTableDemo(_frame, view);
+        return new HeadlessTableDemo(_frame, view, _maxWindowWidth, _maxWindowHeight);
     }
 }

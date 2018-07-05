@@ -16,16 +16,16 @@ public class DefaultView implements View {
 
     @Override
     public Menu getMenu() {
-        return factory.createMenu();
+        return factory.createMenu(this);
     }
 
     @Override
     public DemoSwitcher getDemoSwitcher() {
-        return factory.createDemoSwitcher();
+        return factory.createDemoSwitcher(this);
     }
 
     @Override
     public TableDemo getTableDemo() {
-        return factory.createTableDemo();
+        return factory.createTableDemo(this);
     }
 }
