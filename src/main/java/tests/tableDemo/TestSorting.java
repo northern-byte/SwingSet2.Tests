@@ -6,6 +6,8 @@ import implementations.wrappers.TestImage;
 import interfaces.fixtures.PrepareFixture;
 import interfaces.fixtures.SetupFixture;
 import interfaces.pageObjects.TableDemo;
+import net.jodah.failsafe.Failsafe;
+import net.jodah.failsafe.RetryPolicy;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import org.junit.runner.RunWith;
@@ -17,6 +19,8 @@ import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(value = Parameterized.class)
 public class TestSorting {
@@ -71,6 +75,10 @@ public class TestSorting {
         });
     }
 
+    private RetryPolicy retryPolicy = new RetryPolicy().retryIf((Boolean r) -> !r)
+            .withBackoff(100, Platform.getConfigProp("elementTimeout").asInt(), TimeUnit.MILLISECONDS)
+            .withMaxRetries(10);
+
     public TestSorting(String columnName, Object expectedAsc, Object expectedDesc, Class<?> contentType) {
         this.contentType = contentType;
         this.columnName = columnName;
@@ -87,10 +95,12 @@ public class TestSorting {
     @Test
     public void TestSortingAsc() {
         demo.clickColumnHeader(columnName);
-        int columnIndex = demo.getColumnIndex(columnName);
-        Object cast = getCast(demo.getValueFromCell(0, columnIndex), contentType);
-        Assert.assertNotNull(cast);
-        Assert.assertEquals((expectedAsc), cast);
+
+        Failsafe.with(retryPolicy).get( () -> {
+            int columnIndex = demo.getColumnIndex(columnName);
+            Object cast = getCast(demo.getValueFromCell(0, columnIndex), contentType);
+            return Objects.equals(cast, expectedAsc);
+        });
     }
 
     /**
@@ -103,10 +113,11 @@ public class TestSorting {
     public void TestSortingDesc() {
         demo.clickColumnHeader(columnName);
         demo.clickColumnHeader(columnName);
-        int columnIndex = demo.getColumnIndex(columnName);
-        Object cast = getCast(demo.getValueFromCell(0, columnIndex), contentType);
-        Assert.assertNotNull(cast);
-        Assert.assertEquals((expectedDesc), cast);
+        Failsafe.with(retryPolicy).get( () -> {
+            int columnIndex = demo.getColumnIndex(columnName);
+            Object cast = getCast(demo.getValueFromCell(0, columnIndex), contentType);
+            return Objects.equals(cast, expectedDesc);
+        });
     }
 
     private Object getCast(Object object, Class<?> type) {

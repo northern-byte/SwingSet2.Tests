@@ -330,7 +330,6 @@ public class BasicTableDemo extends PageObject implements TableDemo {
         JTableHeader header = tableView.get().tableHeader().target;
         Point columnPoint = headerHelper.pointAtName(header, textMatcherHelper.exactText(columnName));
         frame.robot.click(header, columnPoint);
-        Pause.pause(Platform.getConfigProp("elementTimeout").asInt());
     }
 
     @Override
