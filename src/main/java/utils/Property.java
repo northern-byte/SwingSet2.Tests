@@ -5,11 +5,11 @@ import implementations.wrappers.TestImage;
 import java.awt.*;
 import java.util.Arrays;
 
-public class Prop {
+public class Property {
     private String colorSeparator = ":";
     private String value;
 
-    Prop(String value) {
+    Property(String value) {
         this.value = value;
     }
 

@@ -40,22 +40,22 @@ public class ResourceManager {
             throw e;
         }
     }
-    static synchronized Prop getConfigProp(String key){
+    static synchronized Property getConfigProp(String key){
         loadConfigProperties();
         String value = configProperties.getProperty(key);
         if (value == null) {
             throw new NoSuchPropertyException(String.format("There is no property: %s", key));
         }
-        return new Prop(value);
+        return new Property(value);
     }
 
-    static synchronized Prop getSpecProp(String key){
+    static synchronized Property getSpecProp(String key){
         loadSpecificationProperties();
         String value = specificationProperties.getProperty(key);
         if (value == null) {
             throw new NoSuchPropertyException(String.format("There is no specification property: %s", key));
         }
-        return new Prop(value);
+        return new Property(value);
     }
 
     public static synchronized void loadConfigProperties(){
