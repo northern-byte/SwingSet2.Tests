@@ -21,19 +21,19 @@ public class Platform {
         return OS.contains("nux");
     }
 
-    public static synchronized Prop getConfigProp(String key){
-        Prop specProp = null;
+    public static synchronized Property getConfigProp(String key){
+        Property specProperty = null;
             try {
-                specProp = ResourceManager.getConfigProp((String.format("%s.%s", getPlatformPrefix(), key)));
+                specProperty = ResourceManager.getConfigProp((String.format("%s.%s", getPlatformPrefix(), key)));
             } catch (NoSuchPropertyException ignored) {
 
             }
 
-        if(specProp == null){
+        if(specProperty == null){
             throw new NoSuchPropertyException(String.format("Config property %s was not found for platform: %s ", key, OS));
         }
 
-        return specProp;
+        return specProperty;
     }
 
     private static String getPlatformPrefix() {

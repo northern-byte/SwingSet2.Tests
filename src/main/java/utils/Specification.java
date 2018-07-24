@@ -22,22 +22,22 @@ public class Specification {
         specificationsLinkedList.add(DEFAULT_SPECIFICATION);
     }
 
-    public synchronized Prop get(String key) {
-        Prop specProp = null;
+    public synchronized Property get(String key) {
+        Property specProperty = null;
         for (String spec : specificationsLinkedList) {
             try {
-                specProp = ResourceManager.getSpecProp((String.format("%s.%s", spec, key)));
+                specProperty = ResourceManager.getSpecProp((String.format("%s.%s", spec, key)));
             } catch (NoSuchPropertyException ignored) {
 
             }
         }
 
-        if (specProp == null) {
+        if (specProperty == null) {
             throw new NoSuchPropertyException(String.format("Property %s was not found in specifications: %s ", key,
                     specificationsLinkedList.toString()));
         }
 
-        return specProp;
+        return specProperty;
     }
 
     public static Collection<String> getSpecifications() {
