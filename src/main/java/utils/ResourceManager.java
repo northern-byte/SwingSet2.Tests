@@ -21,11 +21,11 @@ public class ResourceManager {
 
     private static ResourceBundle BUNDLE;
 
-    public static synchronized void loadBundle() {
+    public static void loadBundle() {
         BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
     }
 
-    public static synchronized InputStream getResInputStream(String path) {
+    public static InputStream getResInputStream(String path) {
         InputStream inputStream = ResourceManager.class.getClassLoader().getResourceAsStream(path);
         if (inputStream == null) {
             throw new MissingResourceException("Can't find resource file", path, "");
@@ -33,14 +33,14 @@ public class ResourceManager {
         return inputStream;
     }
 
-    public static synchronized String getResString(String key) {
+    public static String getResString(String key) {
         try {
             return BUNDLE.getString(key);
         } catch (MissingResourceException e) {
             throw e;
         }
     }
-    static synchronized Property getConfigProp(String key){
+    static Property getConfigProp(String key){
         loadConfigProperties();
         String value = configProperties.getProperty(key);
         if (value == null) {
@@ -49,7 +49,7 @@ public class ResourceManager {
         return new Property(value);
     }
 
-    static synchronized Property getSpecProp(String key){
+    static Property getSpecProp(String key){
         loadSpecificationProperties();
         String value = specificationProperties.getProperty(key);
         if (value == null) {
@@ -58,21 +58,21 @@ public class ResourceManager {
         return new Property(value);
     }
 
-    public static synchronized void loadConfigProperties(){
+    public static void loadConfigProperties(){
         if(!configPropertiesAreLoaded) {
             configProperties = loadProps(CONFIG_NAME);
             configPropertiesAreLoaded = true;
         }
     }
 
-    public static synchronized void loadSpecificationProperties(){
+    public static void loadSpecificationProperties(){
         if(!specificationPropertiesAreLoaded) {
             specificationProperties = loadProps(SPEC_NAME);
             specificationPropertiesAreLoaded = true;
         }
     }
 
-    private static synchronized Properties loadProps(String source) {
+    private static Properties loadProps(String source) {
             try {
                 Properties properties = new Properties();
                 properties.load(getResInputStream(source));
